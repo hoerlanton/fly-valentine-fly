@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild, AfterViewInit} from '@angular/core';
 import {getAdjacentKeyPoints, load, PoseNet} from '@tensorflow-models/posenet';
 import {LoadingController} from '@ionic/angular';
 
@@ -7,7 +7,7 @@ import {LoadingController} from '@ionic/angular';
   templateUrl: './posenet.page.html',
   styleUrls: ['./posenet.page.scss'],
 })
-export class PosenetPage implements OnInit {
+export class PosenetPage implements OnInit, AfterViewInit {
 
   @ViewChild('fileSelector') fileInput!: ElementRef;
   @ViewChild('canvas', {static: true}) canvas!: ElementRef;
@@ -15,6 +15,7 @@ export class PosenetPage implements OnInit {
   ratio: number | null = null;
   modelPromise: Promise<PoseNet>;
   private ctx!: CanvasRenderingContext2D;
+  hasGetUserMedia = false;
 
   constructor(private readonly loadingController: LoadingController) {
     this.modelPromise = load();
@@ -22,6 +23,46 @@ export class PosenetPage implements OnInit {
 
   ngOnInit(): void {
     this.ctx = this.canvas.nativeElement.getContext('2d');
+  }
+
+  ngAfterViewInit(): void {
+      const video = document.querySelector('#videoElement');
+      if (navigator.mediaDevices.getUserMedia) {
+        navigator.mediaDevices.getUserMedia({video: true})
+            .then((stream) => {
+              console.log(stream);
+              video.srcObject = stream;
+              const FPS = 20;
+              setInterval(() => {
+                const type = 'image/png';
+                const videoElement = document.getElementById('videoElement');
+                const frame = this.capture(videoElement, 1);
+                if (frame.width !== 0) {
+                  this.drawImageScaled(frame);
+                  this.estimate(frame);
+                }
+              }, 1000 / FPS);
+            })
+            .catch((error) => {
+              console.log('Something went wrong!');
+            });
+      } else {
+        alert('getUserMedia() is not supported by your browser');
+      }
+  }
+
+  capture(video, scaleFactor): HTMLCanvasElement {
+    if (scaleFactor == null) {
+      scaleFactor = 1;
+    }
+    const w = video.videoWidth * scaleFactor;
+    const h = video.videoHeight * scaleFactor;
+    const canvas = document.createElement('canvas');
+    canvas.width  = w;
+    canvas.height = h;
+    const ctx = canvas.getContext('2d');
+    ctx.drawImage(video, 0, 0, w, h);
+    return canvas;
   }
 
   onFileCange(event: Event): void {
@@ -73,6 +114,7 @@ export class PosenetPage implements OnInit {
       flipHorizontal,
       decodingMethod: 'single-person'
     });
+    console.log(poses);
     const pose = poses && poses[0];
 
     if (pose && pose.keypoints && this.ratio) {
