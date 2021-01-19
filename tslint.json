@@ -43,6 +43,7 @@
         ]
       }
     ],
+    "no-any": true,
     "no-console": [
       true,
       "debug",
@@ -121,7 +122,7 @@
         "check-typecast"
       ]
     },
-    "component-class-suffix": true,
+    "component-class-suffix": [true, "Page", "Component"],
     "contextual-lifecycle": true,
     "directive-class-suffix": true,
     "no-conflicting-lifecycle": true,
