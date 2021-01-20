@@ -16,6 +16,23 @@ export class PosenetPage implements OnInit, AfterViewInit {
   modelPromise: Promise<PoseNet>;
   private ctx!: CanvasRenderingContext2D;
   hasGetUserMedia = false;
+  handsUp = 0;
+  handsDown = 0;
+  showInstructions = false;
+  showResult = false;
+  scenario1 = false;
+  scenario2 = false;
+  scenario3 = false;
+  scenario4 = false;
+  points = 0;
+  counter = 0;
+  increaseCounter = false;
+  result = '';
+  objects = {Flugzeug: true, Katze: false, Vogel: true, Haus: false, Berg: false, Johannes: false};
+  objectChosen = this.chooseOne(this.objects);
+  text = this.points + '/' + Object.keys(this.objects).length + ' | Es fliegt, es fliegt ein/e: ' + this.objectChosen.key;
+  timeLeft = 5;
+  interval = 0;
 
   constructor(private readonly loadingController: LoadingController) {
     this.modelPromise = load();
@@ -49,6 +66,26 @@ export class PosenetPage implements OnInit, AfterViewInit {
       } else {
         alert('getUserMedia() is not supported by your browser');
       }
+  }
+
+  size(obj): any {
+    Object.size = function(obj) {
+      let size = 0,
+          key;
+      for (key in obj) {
+        if (obj.hasOwnProperty(key)) {size++};
+      }
+      return size;
+    };
+  }
+
+  chooseOne(obj): any {
+    let k = 0;
+    let n = 0;
+    JSON.stringify(obj, (key, value) => (key && ++n || value));
+    n *= Math.random();
+    JSON.stringify(obj, (key, value) => (key && --n | 0 || (k = key) || value));
+    return {key: k, value: obj[k]};
   }
 
   capture(video, scaleFactor): HTMLCanvasElement {
@@ -105,16 +142,116 @@ export class PosenetPage implements OnInit, AfterViewInit {
       0, 0, img.width * this.ratio, img.height * this.ratio);
   }
 
+  startTimer() {
+    this.interval = setInterval(() => {
+      if (this.timeLeft > 0) {
+        this.timeLeft--;
+      } else {
+        this.timeLeft = 60;
+      }
+    },1000);
+  }
+
+  pauseTimer() {
+    clearInterval(this.interval);
+  }
+
   // tslint:disable-next-line:no-any
   private async estimate(img: any): Promise<void> {
     const flipHorizontal = false;
-
     const model = await this.modelPromise;
     const poses = await model.estimatePoses(img, {
       flipHorizontal,
       decodingMethod: 'single-person'
     });
+    console.log(JSON.stringify(this.objectChosen.key));
+    console.log(this.objectChosen.value);
+    console.log('poses');
     console.log(poses);
+    console.log('counter');
+    console.log(this.counter);
+    console.log('handsup');
+    console.log(this.handsUp);
+    console.log('handsdown');
+    console.log(this.handsDown);
+    // Find out if hands are up
+
+    if (poses && poses[0].keypoints[0] && poses[0].keypoints[7]) {
+      if (poses[0].keypoints[0].position.y > poses[0].keypoints[7].position.y) {
+        this.handsUp++;
+        this.handsDown = 0;
+      } else if (poses[0].keypoints[0].position.y > poses[0].keypoints[8].position.y) {
+        this.handsUp++;
+        this.handsDown = 0;
+      } else if (poses[0].keypoints[0].position.y > poses[0].keypoints[9].position.y) {
+        this.handsUp++;
+        this.handsDown = 0;
+      } else if (poses[0].keypoints[0].position.y > poses[0].keypoints[10].position.y) {
+        this.handsUp++;
+        this.handsDown = 0;
+      } else {
+        console.log('else');
+        this.handsDown++;
+        this.handsUp = 0;
+      }
+    }
+
+    if (this.counter <= 40 && this.increaseCounter) {
+      this.counter++;
+      this.objectChosen = this.chooseOne(this.objects);
+    } else {
+      if (this.points === 6) {
+        this.points = 0;
+      }
+      this.counter = 0;
+      this.showResult = false;
+      this.increaseCounter = false;
+    }
+
+    this.showInstructions = true;
+    // Different scenarios can occur. Adjust Feedback and points according to scenario
+    if (this.handsUp > 100 && this.objectChosen.value === true) {
+      this.points++;
+      console.log('#################################');
+      this.result = 'Richtig :)';
+      this.handsUp = 0;
+      this.handsDown = 0;
+      this.showResult = true;
+      this.increaseCounter = true;
+    } else if (this.handsDown > 100 && this.objectChosen.value === false) {
+      this.points++;
+      this.result = 'Richtig :)';
+      this.handsUp = 0;
+      this.handsDown = 0;
+      this.showResult = true;
+      this.increaseCounter = true;
+    } else if (this.handsUp > 100 && this.objectChosen.value === false) {
+      this.points = 0;
+      this.result = 'Falsch :)';
+      this.handsUp = 0;
+      this.handsDown = 0;
+      this.showResult = true;
+      this.increaseCounter = true;
+    } else if (this.handsDown > 100 && this.objectChosen.value === true) {
+      this.points = 0;
+      this.result = 'Falsch :)';
+      this.handsUp = 0;
+      this.handsDown = 0;
+      this.showResult = true;
+      this.increaseCounter = true;
+    }
+
+    if (this.points === 6) {
+      this.result = 'Gratulation - Du hast gewonnen!! :)';
+      this.showResult = true;
+      this.increaseCounter = true;
+      this.text = this.points + '/' + Object.keys(this.objects).length + ' | Es fliegt, es fliegt ein/e: ' + this.objectChosen.key;
+    } else {
+      this.text = this.points + '/' + Object.keys(this.objects).length + ' | Es fliegt, es fliegt ein/e: ' + this.objectChosen.key;
+    }
+    console.log(this.points);
+    console.log(this.text);
+
     const pose = poses && poses[0];
 
     if (pose && pose.keypoints && this.ratio) {

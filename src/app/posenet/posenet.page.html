@@ -1,6 +1,13 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>Posenet</ion-title>
+    <div *ngIf="showInstructions">
+      <p>{{text}}</p>
+    </div>
+
+    <div *ngIf="showResult">
+      <p>{{result}}</p>
+    </div>
   </ion-toolbar>
 </ion-header>
 
@@ -10,15 +17,14 @@
   </div>
 </ion-content>
 
-<ion-content #content2>
+
+
+<ion-content #content2 style="display: none">
   <div #canvasContainer2 class="ion-text-center canvasContainer2">
       <video autoplay="true" id="videoElement"></video>
       <canvas id="preview" width="160" height="120"></canvas>
   </div>
 </ion-content>
 
-<ion-footer class="ion-text-center">
-  <input #fileSelector (change)="onFileCange($event)" accept="image/*" style="display: none;"
-         type="file">
-  <ion-button (click)="clickFileSelector()" class="ion-text-center">Select File ...</ion-button>
-</ion-footer>
+
+
