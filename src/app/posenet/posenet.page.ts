@@ -69,11 +69,11 @@ export class PosenetPage implements OnInit, AfterViewInit {
   }
 
   chooseOne(obj: any): any {
-    let k = 0;
+    let k = '';
     let n = 0;
     JSON.stringify(obj, (key, value) => (key && ++n || value));
     n *= Math.random();
-    JSON.stringify(obj, (key, value) => (key && --n | 0 || (k = key as number) || value));
+    JSON.stringify(obj, (key, value) => (key && --n | 0 || (k = key) || value));
     return {key: k, value: obj[k]};
   }
 
