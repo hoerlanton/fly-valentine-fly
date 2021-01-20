@@ -1,5 +1,5 @@
 {
-  "name": "tfjsmodels",
+  "name": "fly-valentine-fly",
   "version": "0.0.1",
   "scripts": {
     "heroku-postbuild": "ng build --prod",
