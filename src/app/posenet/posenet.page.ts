@@ -47,7 +47,6 @@ export class PosenetPage implements OnInit, AfterViewInit {
       if (navigator.mediaDevices.getUserMedia) {
         navigator.mediaDevices.getUserMedia({video: true})
             .then((stream) => {
-              console.log(stream);
               video.srcObject = stream;
               const FPS = 20;
               setInterval(() => {
@@ -153,16 +152,16 @@ export class PosenetPage implements OnInit, AfterViewInit {
       flipHorizontal,
       decodingMethod: 'single-person'
     });
-    console.log(JSON.stringify(this.objectChosen.key));
-    console.log(this.objectChosen.value);
-    console.log('poses');
-    console.log(poses);
-    console.log('counter');
-    console.log(this.counter);
-    console.log('handsup');
-    console.log(this.handsUp);
-    console.log('handsdown');
-    console.log(this.handsDown);
+    // console.log(JSON.stringify(this.objectChosen.key));
+    // console.log(this.objectChosen.value);
+    // console.log('poses');
+    // console.log(poses);
+    // console.log('counter');
+    // console.log(this.counter);
+    // console.log('handsup');
+    // console.log(this.handsUp);
+    // console.log('handsdown');
+    // console.log(this.handsDown);
     // Find out if hands are up
 
     if (poses && poses[0].keypoints[0] && poses[0].keypoints[7]) {
@@ -179,7 +178,6 @@ export class PosenetPage implements OnInit, AfterViewInit {
         this.handsUp++;
         this.handsDown = 0;
       } else {
-        console.log('else');
         this.handsDown++;
         this.handsUp = 0;
       }
@@ -201,7 +199,6 @@ export class PosenetPage implements OnInit, AfterViewInit {
     // Different scenarios can occur. Adjust Feedback and points according to scenario
     if (this.handsUp > 100 && this.objectChosen.value === true) {
       this.points++;
-      console.log('#################################');
       this.result = 'Richtig :)';
       this.handsUp = 0;
       this.handsDown = 0;
@@ -238,8 +235,6 @@ export class PosenetPage implements OnInit, AfterViewInit {
     } else {
       this.text = this.points + '/' + Object.keys(this.objects).length + ' | Es fliegt, es fliegt ein/e: ' + this.objectChosen.key;
     }
-    console.log(this.points);
-    console.log(this.text);
 
     const pose = poses && poses[0];
 
