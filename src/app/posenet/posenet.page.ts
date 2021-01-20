@@ -28,7 +28,7 @@ export class PosenetPage implements OnInit, AfterViewInit {
   counter = 0;
   increaseCounter = false;
   result = '';
-  objects = {Flugzeug: true, Katze: false, Vogel: true, Haus: false, Berg: false, Johannes: false};
+  objects = {Flugzeug: true, Katze: false, Vogel: true, Haus: false, Wolke: true, Baum: false};
   objectChosen = this.chooseOne(this.objects);
   text = this.points + '/' + Object.keys(this.objects).length + ' | Es fliegt, es fliegt ein/e: ' + this.objectChosen.key;
   timeLeft = 5;
@@ -248,15 +248,15 @@ export class PosenetPage implements OnInit, AfterViewInit {
         const x = keypoint.position.x * this.ratio;
         const y = keypoint.position.y * this.ratio;
 
-        this.ctx.beginPath();
-        this.ctx.arc(x, y, 5, 0, 2 * Math.PI, false);
-        this.ctx.lineWidth = 3;
-        this.ctx.strokeStyle = '#bada55';
-        this.ctx.stroke();
+        // this.ctx.beginPath();
+        // this.ctx.arc(x, y, 5, 0, 2 * Math.PI, false);
+        // this.ctx.lineWidth = 3;
+        // this.ctx.strokeStyle = '#9048ac';
+        // this.ctx.stroke();
       }
 
       const adjacentKeyPoints = getAdjacentKeyPoints(pose.keypoints, 0.2);
-      adjacentKeyPoints.forEach(keypoints => this.drawSegment(keypoints[0].position, keypoints[1].position));
+      // adjacentKeyPoints.forEach(keypoints => this.drawSegment(keypoints[0].position, keypoints[1].position));
     }
   }
 

@@ -1,19 +1,24 @@
-<ion-header>
+<ion-header color="primary">
   <ion-toolbar>
-    <ion-title>Posenet</ion-title>
-    <div *ngIf="showInstructions">
-      <p>{{text}}</p>
-    </div>
-
-    <div *ngIf="showResult">
-      <p>{{result}}</p>
-    </div>
+    <ion-title style="color: #7f3f97">Fly Valentine Fly</ion-title>
   </ion-toolbar>
 </ion-header>
 
+<ion-item *ngIf="showInstructions">
+  <ion-label>
+    <p style="position: center; font-size: large">{{text}}</p>
+  </ion-label>
+</ion-item>
+<ion-item *ngIf="showResult">
+  <ion-label>
+    <p style="position: center; font-size: large">{{result}}</p>
+  </ion-label>
+</ion-item>
+
 <ion-content #content>
   <div #canvasContainer class="ion-text-center canvasContainer">
-    <canvas #canvas></canvas>
+    <canvas #canvas style="border-radius: 10px; width: auto; height: auto; border: #7f3f97 solid 5px"></canvas>
+    <ion-img src="../../assets/fly-valentine-fly.png" style="width: 100px; length: 100px; float: right; margin-right: 10%"></ion-img>
   </div>
 </ion-content>
 
@@ -21,8 +26,8 @@
 
 <ion-content #content2 style="display: none">
   <div #canvasContainer2 class="ion-text-center canvasContainer2">
-      <video autoplay="true" id="videoElement"></video>
-      <canvas id="preview" width="160" height="120"></canvas>
+      <video autoplay="true" id="videoElement" style="border-radius: 10px; width: 700px; height: 700px;"></video>
+      <canvas id="preview" width="160" height="120" style="border-radius: 10px; width: 700px; height: 700px;"></canvas>
   </div>
 </ion-content>
 
