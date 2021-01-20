@@ -43,7 +43,7 @@ export class PosenetPage implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-      const video = document.querySelector('#videoElement');
+      const video = <HTMLVideoElement>document.querySelector('#videoElement');
       if (navigator.mediaDevices.getUserMedia) {
         navigator.mediaDevices.getUserMedia({video: true})
             .then((stream) => {
@@ -68,18 +68,7 @@ export class PosenetPage implements OnInit, AfterViewInit {
       }
   }
 
-  size(obj): any {
-    Object.size = function(obj) {
-      let size = 0,
-          key;
-      for (key in obj) {
-        if (obj.hasOwnProperty(key)) {size++};
-      }
-      return size;
-    };
-  }
-
-  chooseOne(obj): any {
+  chooseOne(obj: any): any {
     let k = 0;
     let n = 0;
     JSON.stringify(obj, (key, value) => (key && ++n || value));

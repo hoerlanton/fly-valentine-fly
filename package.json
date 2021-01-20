@@ -23,6 +23,7 @@
     "@angular/platform-browser-dynamic": "11.0.9",
     "@angular/router": "11.0.9",
     "@ionic/angular": "5.5.2",
+    "@ionic/angular-toolkit": "3.0.0",
     "@tensorflow-models/coco-ssd": "2.2.1",
     "@tensorflow-models/mobilenet": "2.0.4",
     "@tensorflow-models/posenet": "2.2.1",
