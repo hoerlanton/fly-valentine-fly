@@ -73,7 +73,7 @@ export class PosenetPage implements OnInit, AfterViewInit {
     let n = 0;
     JSON.stringify(obj, (key, value) => (key && ++n || value));
     n *= Math.random();
-    JSON.stringify(obj, (key, value) => (key && --n | 0 || (k = key) || value));
+    JSON.stringify(obj, (key, value) => (key && --n | 0 || (k = key as number) || value));
     return {key: k, value: obj[k]};
   }
 
@@ -86,7 +86,7 @@ export class PosenetPage implements OnInit, AfterViewInit {
     const canvas = document.createElement('canvas');
     canvas.width  = w;
     canvas.height = h;
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext('2d')!;
     ctx.drawImage(video, 0, 0, w, h);
     return canvas;
   }
