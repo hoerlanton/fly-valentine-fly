@@ -35,7 +35,12 @@ export class PosenetPage implements OnInit, AfterViewInit {
   interval = 0;
 
   constructor(private readonly loadingController: LoadingController) {
-    this.modelPromise = load();
+    this.modelPromise = load({
+      architecture: 'MobileNetV1',
+      outputStride: 16,
+      inputResolution: 513,
+      multiplier: 0.75
+    });
   }
 
   ngOnInit(): void {
@@ -48,7 +53,7 @@ export class PosenetPage implements OnInit, AfterViewInit {
         navigator.mediaDevices.getUserMedia({video: true})
             .then((stream) => {
               video.srcObject = stream;
-              const FPS = 20;
+              const FPS = 40;
               setInterval(() => {
                 const type = 'image/png';
                 const videoElement = document.getElementById('videoElement');
@@ -169,7 +174,7 @@ export class PosenetPage implements OnInit, AfterViewInit {
       }
     }
 
-    if (this.counter <= 4 && this.increaseCounter) {
+    if (this.counter <= 8 && this.increaseCounter) {
       this.counter++;
       this.objectChosen = this.chooseOne(this.objects);
     } else {
@@ -183,28 +188,28 @@ export class PosenetPage implements OnInit, AfterViewInit {
 
     this.showInstructions = true;
     // Different scenarios can occur. Adjust Feedback and points according to scenario
-    if (this.handsUp > 10 && this.objectChosen.value === true) {
+    if (this.handsUp > 20 && this.objectChosen.value === true) {
       this.points++;
       this.result = 'Richtig :)';
       this.handsUp = 0;
       this.handsDown = 0;
       this.showResult = true;
       this.increaseCounter = true;
-    } else if (this.handsDown > 10 && this.objectChosen.value === false) {
+    } else if (this.handsDown > 20 && this.objectChosen.value === false) {
       this.points++;
       this.result = 'Richtig :)';
       this.handsUp = 0;
       this.handsDown = 0;
       this.showResult = true;
       this.increaseCounter = true;
-    } else if (this.handsUp > 10 && this.objectChosen.value === false) {
+    } else if (this.handsUp > 20 && this.objectChosen.value === false) {
       this.points = 0;
       this.result = 'Falsch :)';
       this.handsUp = 0;
       this.handsDown = 0;
       this.showResult = true;
       this.increaseCounter = true;
-    } else if (this.handsDown > 10 && this.objectChosen.value === true) {
+    } else if (this.handsDown > 20 && this.objectChosen.value === true) {
       this.points = 0;
       this.result = 'Falsch :)';
       this.handsUp = 0;
