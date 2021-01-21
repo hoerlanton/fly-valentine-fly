@@ -9,18 +9,14 @@
 <ion-grid style="max-height: 220px">
   <ion-row>
     <ion-col size="4" class="ion-align-self-start">
-      <p style="position: center; padding: 5px; background-color: #7f3f97; border-radius: 5px; color: #ffffff; text-align: center; font-size: xx-large">{{points}} / {{objectsLength}}</p>
+      <p style="position: center; padding: 5px; background-color: #7f3f97; border-radius: 5px; color: #ffffff; text-align: center; vertical-align: center; min-height: 70px; font-size: xx-large">{{points}} / {{objectsLength}}</p>
     </ion-col>
     <ion-col size="4" class="ion-align-self-center">
-      <p style="position: center; font-size: large; padding: 5px; border: #7f3f97 2px solid; border-radius: 5px; color: #4d4d4d; text-align: center;">{{text}}</p>
+      <p style="position: center; font-size: large; padding: 5px; border: #7f3f97 2px solid; border-radius: 5px; color: #4d4d4d; vertical-align: center; min-height: 70px; text-align: center;">{{text}}</p>
     </ion-col>
     <ion-col size="4"  class="ion-align-self-end">
-      <div *ngIf="handsUp">
-        <p style="font-size: large; padding: 10px; background-color: lightgrey; border-radius: 5px; color: #4d4d4d; text-align: center;">  🙌 {{handsUpInSeconds}} Sekunden von 4 Sekunden</p>
-      </div>
-      <div *ngIf="handsDown">
-        <p style="font-size: large; padding: 10px; background-color: lightgrey; border-radius: 5px; color: #4d4d4d; text-align: center;"> 🧍‍♂️ {{handsDownInSeconds}} Sekunden von 4 Sekunden</p>
-      </div>
+      <p *ngIf="handsUp" style="font-size: large; margin-bottom: 32px;  padding: 10px; background-color: lightgrey; border-radius: 5px; color: #4d4d4d; max-height: 70px; text-align: center;">  🙌 {{handsUpInSeconds}} Sekunden von 4 Sekunden</p>
+      <p *ngIf="handsDown" style="font-size: large; margin-bottom: 32px; padding: 10px; background-color: lightgrey; border-radius: 5px; color: #4d4d4d; max-height: 70px; text-align: center;"> 🧍‍♂️ {{handsDownInSeconds}} Sekunden von 4 Sekunden</p>
     </ion-col>
   </ion-row>
   <ion-row>
@@ -35,7 +31,7 @@
 <ion-content #content>
   <div #canvasContainer class="ion-text-center canvasContainer">
     <canvas #canvas style="border-radius: 10px; width: auto; height: auto; border: #7f3f97 solid 5px"></canvas>
-    <p style="font-size: large"><b>Regeln:</b><br> Hebe deine Arme, wenn das Objekt nach dem es fliegt, es fliegt ... oben eingeblendet fliegen kann <br> und lass die Arme unten, wenn es nicht fliegen kann. <br>So sammelst Punkte. <br> Bei 6 Punkten hast du gewonnen!</p>
+    <p style="font-size: large"><b>Regeln:</b><br> Hebe deine Arme, wenn das Objekt nach dem es fliegt, es fliegt ... oben eingeblendet fliegen kann <br> und lass die Arme unten, wenn es nicht fliegen kann. <br>So sammelst Punkte. <br> Bei 6 Punkten hast du gewonnen!</p><p style="color: lightcoral; font-size: large"><b>Achtung:</b> Achte darauf, dass deine Arme und Kopf immer im Bild sind.</p>
   </div>
 </ion-content>
 
