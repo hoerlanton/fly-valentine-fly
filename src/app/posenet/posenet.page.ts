@@ -154,7 +154,7 @@ export class PosenetPage implements OnInit, AfterViewInit {
     // console.log(this.handsDown);
     // Find out if hands are up
 
-    if (poses && poses[0].keypoints[0] && poses[0].keypoints[7]) {
+    if (poses && poses[0].keypoints[0]) {
       if (poses[0].keypoints[0].position.y > poses[0].keypoints[7].position.y) {
         this.handsUp++;
         this.handsDown = 0;
