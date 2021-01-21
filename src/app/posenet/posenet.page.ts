@@ -28,7 +28,7 @@ export class PosenetPage implements OnInit, AfterViewInit {
   counter = 0;
   increaseCounter = false;
   result = '';
-  objects = {Flugzeug: true, Katze: false, Vogel: true, Haus: false, Wolke: true, Baum: false};
+  objects = {Flugzeug: true, Katze: false, Vogel: true, Haus: false, Wolke: true, Baum: false, Stuhl: false, Brot: false, Smartphone: false, Geldtasche: false, Kuh: false, Papagei: true, Huhn: false, Schneeball: false, Adler: true, Fliege: true, Mücke: true, Helikopter: true, Kampfjet: true, Rakete: true};
   objectsLength = Object.keys(this.objects).length;
   objectChosen = this.chooseOne(this.objects);
   text = 'Punkte | Es fliegt, es fliegt ein/e: ' + this.objectChosen.key;
