@@ -24,8 +24,10 @@
     </ion-col>
   </ion-row>
   <ion-row>
-    <ion-col size="12" *ngIf="showResult" class="ion-align-self-center" style="position: center; margin: 10px; padding: 5px; max-width: 90px; background-color: #9b5ab4; border-radius: 7px; color: #ffffff; text-align: center; font-size: xx-large">
-      <p style="position: center; font-size: large">{{result}}</p>
+    <ion-col size="12" *ngIf="showResult" class="ion-align-self-center" style="font-size: xx-large">
+        <p *ngIf="result === 'Richtig 😊'" style="position: center;  margin: 10px; padding: 5px;  background-color: lightgreen; border-radius: 7px; color: #ffffff; text-align: center;">{{result}}</p>
+        <p *ngIf="result === 'Falsch 😔'" style="position: center; margin: 10px; padding: 5px;  background-color: lightcoral; border-radius: 7px; color: #ffffff; text-align: center;">{{result}}</p>
+        <p *ngIf="result === 'Gratulation - Du hast gewonnen!! 🥳'" style="position: center; margin: 10px; padding: 5px; background-color: #9b5ab4; border-radius: 7px; color: #ffffff; text-align: center;">{{result}}</p>
     </ion-col>
   </ion-row>
 </ion-grid>

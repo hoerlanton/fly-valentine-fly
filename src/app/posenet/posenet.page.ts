@@ -1,6 +1,7 @@
 import {Component, ElementRef, OnInit, ViewChild, AfterViewInit} from '@angular/core';
 import {getAdjacentKeyPoints, load, PoseNet} from '@tensorflow-models/posenet';
 import {LoadingController} from '@ionic/angular';
+import Speech from 'speak-tts';
 
 @Component({
   selector: 'app-posenet',
@@ -23,6 +24,7 @@ export class PosenetPage implements OnInit, AfterViewInit {
   handsDownInSeconds = 0;
   handsUpInSeconds = 0;
   points = 0;
+  speechCounter = 0;
   counter = 0;
   increaseCounter = false;
   result = '';
@@ -32,6 +34,7 @@ export class PosenetPage implements OnInit, AfterViewInit {
   text = 'Punkte | Es fliegt, es fliegt ein/e: ' + this.objectChosen.key;
   timeLeft = 5;
   interval = 0;
+  speech = new Speech();
 
   constructor(private readonly loadingController: LoadingController) {
     this.modelPromise = load({
@@ -43,6 +46,27 @@ export class PosenetPage implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
+    // will throw an exception if not browser supported
+    if (this.speech.hasBrowserSupport()) { // returns a boolean
+      console.log('speech synthesis supported');
+    }
+    this.speech.init({
+      'volume': 1,
+      'lang': 'de-DE',
+      'rate': 1,
+      'pitch': 1,
+      'splitSentences': true,
+      'listeners': {
+        'onvoiceschanged': (voices) => {
+          console.log("Event voiceschanged", voices)
+        }
+      }
+    }).then((data) => {
+      // The "data" object contains the list of available voices and the voice synthesis params
+      console.log('Speech is ready, voices are available', data);
+    }).catch(e => {
+      console.error('An error occured while initializing : ', e);
+    });
     this.ctx = this.canvas.nativeElement.getContext('2d');
   }
 
@@ -134,6 +158,39 @@ export class PosenetPage implements OnInit, AfterViewInit {
       0, 0, img.width * this.ratio, img.height * this.ratio);
   }
 
+  // tslint:disable-next-line:typedef
+  speakText(textToSpeak) {
+    this.speech.speak({
+      text: textToSpeak,
+    }).then(() => {
+      console.log('Success !');
+    }).catch(e => {
+      console.error('An error occurred :', e);
+    })
+  }
+
+  processRight(){
+    this.points++;
+    this.result = 'Richtig 😊';
+    this.handsUp = 0;
+    this.handsDown = 0;
+    this.showResult = true;
+    this.increaseCounter = true;
+    this.objectChosen = this.chooseOne(this.objects);
+    this.speechCounter = 0;
+  }
+
+  processWrong(){
+    this.points = 0;
+    this.result = 'Falsch 😔';
+    this.handsUp = 0;
+    this.handsDown = 0;
+    this.showResult = true;
+    this.increaseCounter = true;
+    this.objectChosen = this.chooseOne(this.objects);
+    this.speechCounter = 0;
+  }
+
   // tslint:disable-next-line:no-any
   private async estimate(img: any): Promise<void> {
     const flipHorizontal = false;
@@ -189,46 +246,27 @@ export class PosenetPage implements OnInit, AfterViewInit {
     this.showInstructions = true;
     // Different scenarios can occur. Adjust Feedback and points according to scenario
     if (this.handsUp > 20 && this.objectChosen.value === true) {
-      this.points++;
-      this.result = 'Richtig 😊';
-      this.handsUp = 0;
-      this.handsDown = 0;
-      this.showResult = true;
-      this.increaseCounter = true;
-      this.objectChosen = this.chooseOne(this.objects);
+      this.processRight();
     } else if (this.handsDown > 20 && this.objectChosen.value === false) {
-      this.points++;
-      this.result = 'Richtig 😊';
-      this.handsUp = 0;
-      this.handsDown = 0;
-      this.showResult = true;
-      this.increaseCounter = true;
-      this.objectChosen = this.chooseOne(this.objects);
+      this.processRight();
     } else if (this.handsUp > 20 && this.objectChosen.value === false) {
-      this.points = 0;
-      this.result = 'Falsch 😔';
-      this.handsUp = 0;
-      this.handsDown = 0;
-      this.showResult = true;
-      this.increaseCounter = true;
-      this.objectChosen = this.chooseOne(this.objects);
+      this.processWrong();
     } else if (this.handsDown > 20 && this.objectChosen.value === true) {
-      this.points = 0;
-      this.result = 'Falsch 😔';
-      this.handsUp = 0;
-      this.handsDown = 0;
-      this.showResult = true;
-      this.increaseCounter = true;
-      this.objectChosen = this.chooseOne(this.objects);
+      this.processWrong();
     }
 
     if (this.points === 6) {
-      this.result = 'Gratulation - Du hast gewonnen!! :)';
+      this.result = 'Gratulation - Du hast gewonnen!! 🥳';
       this.showResult = true;
       this.increaseCounter = true;
       this.text = 'Es fliegt, es fliegt ein/e: ' + this.objectChosen.key;
+      this.speakText(this.text);
     } else {
       this.text = 'Es fliegt, es fliegt ein/e: ' + this.objectChosen.key;
+      if (this.speechCounter === 0) {
+        this.speakText(this.text);
+      }
+      this.speechCounter++;
     }
 
     const pose = poses && poses[0];
