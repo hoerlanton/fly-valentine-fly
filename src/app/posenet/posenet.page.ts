@@ -37,9 +37,9 @@ export class PosenetPage implements OnInit, AfterViewInit {
   constructor(private readonly loadingController: LoadingController) {
     this.modelPromise = load({
       architecture: 'MobileNetV1',
-      outputStride: 16,
-      inputResolution: 513,
-      multiplier: 0.75
+      outputStride: 8,
+      inputResolution: 400,
+      multiplier: 0.5
     });
   }
 
