@@ -20,17 +20,16 @@ export class PosenetPage implements OnInit, AfterViewInit {
   handsDown = 0;
   showInstructions = false;
   showResult = false;
-  scenario1 = false;
-  scenario2 = false;
-  scenario3 = false;
-  scenario4 = false;
+  handsDownInSeconds = 0;
+  handsUpInSeconds = 0;
   points = 0;
   counter = 0;
   increaseCounter = false;
   result = '';
   objects = {Flugzeug: true, Katze: false, Vogel: true, Haus: false, Wolke: true, Baum: false};
+  objectsLength = Object.keys(this.objects).length;
   objectChosen = this.chooseOne(this.objects);
-  text = this.points + '/' + Object.keys(this.objects).length + ' | Es fliegt, es fliegt ein/e: ' + this.objectChosen.key;
+  text = 'Punkte | Es fliegt, es fliegt ein/e: ' + this.objectChosen.key;
   timeLeft = 5;
   interval = 0;
 
@@ -53,7 +52,7 @@ export class PosenetPage implements OnInit, AfterViewInit {
         navigator.mediaDevices.getUserMedia({video: true})
             .then((stream) => {
               video.srcObject = stream;
-              const FPS = 40;
+              const FPS = 50;
               setInterval(() => {
                 const type = 'image/png';
                 const videoElement = document.getElementById('videoElement');
@@ -62,7 +61,7 @@ export class PosenetPage implements OnInit, AfterViewInit {
                   this.drawImageScaled(frame);
                   this.estimate(frame);
                 }
-              }, 10000 / FPS);
+              }, 10000 / FPS); // 200 ms is good video quality
             })
             .catch((error) => {
               console.log('Something went wrong!');
@@ -173,10 +172,11 @@ export class PosenetPage implements OnInit, AfterViewInit {
         this.handsUp = 0;
       }
     }
+    this.handsDownInSeconds = Math.floor(this.handsDown / 5);
+    this.handsUpInSeconds = Math.floor(this.handsUp / 5);
 
-    if (this.counter <= 8 && this.increaseCounter) {
+    if (this.counter <= 10 && this.increaseCounter) {
       this.counter++;
-      this.objectChosen = this.chooseOne(this.objects);
     } else {
       if (this.points === 6) {
         this.points = 0;
@@ -190,41 +190,45 @@ export class PosenetPage implements OnInit, AfterViewInit {
     // Different scenarios can occur. Adjust Feedback and points according to scenario
     if (this.handsUp > 20 && this.objectChosen.value === true) {
       this.points++;
-      this.result = 'Richtig :)';
+      this.result = 'Richtig 😊';
       this.handsUp = 0;
       this.handsDown = 0;
       this.showResult = true;
       this.increaseCounter = true;
+      this.objectChosen = this.chooseOne(this.objects);
     } else if (this.handsDown > 20 && this.objectChosen.value === false) {
       this.points++;
-      this.result = 'Richtig :)';
+      this.result = 'Richtig 😊';
       this.handsUp = 0;
       this.handsDown = 0;
       this.showResult = true;
       this.increaseCounter = true;
+      this.objectChosen = this.chooseOne(this.objects);
     } else if (this.handsUp > 20 && this.objectChosen.value === false) {
       this.points = 0;
-      this.result = 'Falsch :)';
+      this.result = 'Falsch 😔';
       this.handsUp = 0;
       this.handsDown = 0;
       this.showResult = true;
       this.increaseCounter = true;
+      this.objectChosen = this.chooseOne(this.objects);
     } else if (this.handsDown > 20 && this.objectChosen.value === true) {
       this.points = 0;
-      this.result = 'Falsch :)';
+      this.result = 'Falsch 😔';
       this.handsUp = 0;
       this.handsDown = 0;
       this.showResult = true;
       this.increaseCounter = true;
+      this.objectChosen = this.chooseOne(this.objects);
     }
 
     if (this.points === 6) {
       this.result = 'Gratulation - Du hast gewonnen!! :)';
       this.showResult = true;
       this.increaseCounter = true;
-      this.text = this.points + '/' + Object.keys(this.objects).length + ' | Es fliegt, es fliegt ein/e: ' + this.objectChosen.key;
+      this.text = 'Es fliegt, es fliegt ein/e: ' + this.objectChosen.key;
     } else {
-      this.text = this.points + '/' + Object.keys(this.objects).length + ' | Es fliegt, es fliegt ein/e: ' + this.objectChosen.key;
+      this.text = 'Es fliegt, es fliegt ein/e: ' + this.objectChosen.key;
     }
 
     const pose = poses && poses[0];
