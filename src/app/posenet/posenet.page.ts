@@ -71,7 +71,7 @@ export class PosenetPage implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-      const video = <HTMLVideoElement>document.querySelector('#videoElement');
+      const video = <HTMLVideoElement> document.querySelector('#videoElement');
       if (navigator.mediaDevices.getUserMedia) {
         navigator.mediaDevices.getUserMedia({video: true})
             .then((stream) => {
@@ -193,7 +193,7 @@ export class PosenetPage implements OnInit, AfterViewInit {
 
   // tslint:disable-next-line:no-any
   private async estimate(img: any): Promise<void> {
-    const flipHorizontal = false;
+    const flipHorizontal = true;
     const model = await this.modelPromise;
     const poses = await model.estimatePoses(img, {
       flipHorizontal,
@@ -260,11 +260,14 @@ export class PosenetPage implements OnInit, AfterViewInit {
       this.showResult = true;
       this.increaseCounter = true;
       this.text = 'Es fliegt, es fliegt ein/e: ' + this.objectChosen.key;
-      this.speakText(this.text);
+      if (this.speechCounter === 0) {
+        this.speakText('Gratulation - Du hast gewonnen');
+      }
+      this.speechCounter++;
     } else {
       this.text = 'Es fliegt, es fliegt ein/e: ' + this.objectChosen.key;
       if (this.speechCounter === 0) {
-        this.speakText(this.text);
+        this.speakText(this.objectChosen.key);
       }
       this.speechCounter++;
     }
