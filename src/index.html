@@ -15,9 +15,10 @@
   <meta content="black" name="apple-mobile-web-app-status-bar-style"/>
 </head>
 <body>
-<app-root></app-root>
+  <app-root></app-root>
+  <!-- Import @tensorflow/tfjs-core -->
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@2.8.5/dist/tf.min.js"></script>
+  <!-- Adds the WebGL backend to the global backend registry -->
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-converter@2.8.5/dist/tf-converter.min.js"></script>
 </body>
-  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-core"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-converter"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-backend-webgl"></script>
 </html>

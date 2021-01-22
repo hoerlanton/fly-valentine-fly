@@ -28,6 +28,7 @@ export class PosenetPage implements OnInit, AfterViewInit {
   counter = 0;
   increaseCounter = false;
   result = '';
+  // tslint:disable-next-line:max-line-length
   objects = {Flugzeug: true, Katze: false, Vogel: true, Haus: false, Wolke: true, Baum: false, Stuhl: false, Brot: false, Smartphone: false, Geldtasche: false, Kuh: false, Papagei: true, Huhn: false, Schneeball: false, Adler: true, Fliege: true, Mücke: true, Helikopter: true, Kampfjet: true, Rakete: true};
   objectsLength = Object.keys(this.objects).length;
   objectChosen = this.chooseOne(this.objects);
@@ -51,14 +52,14 @@ export class PosenetPage implements OnInit, AfterViewInit {
       console.log('speech synthesis supported');
     }
     this.speech.init({
-      'volume': 1,
-      'lang': 'de-DE',
-      'rate': 1,
-      'pitch': 1,
-      'splitSentences': true,
-      'listeners': {
-        'onvoiceschanged': (voices) => {
-          console.log("Event voiceschanged", voices)
+      volume: 1,
+      lang: 'de-DE',
+      rate: 1,
+      pitch: 1,
+      splitSentences: true,
+      listeners: {
+        onvoiceschanged: (voices) => {
+          console.log('Event voiceschanged', voices);
         }
       }
     }).then((data) => {
@@ -71,7 +72,7 @@ export class PosenetPage implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-      const video = <HTMLVideoElement> document.querySelector('#videoElement');
+      const video = document.querySelector('#videoElement') as HTMLVideoElement;
       if (navigator.mediaDevices.getUserMedia) {
         navigator.mediaDevices.getUserMedia({video: true})
             .then((stream) => {
@@ -113,8 +114,12 @@ export class PosenetPage implements OnInit, AfterViewInit {
     const canvas = document.createElement('canvas');
     canvas.width  = w;
     canvas.height = h;
-    const ctx = canvas.getContext('2d')!;
-    ctx.drawImage(video, 0, 0, w, h);
+    const ctx = canvas.getContext('2d');
+    if ('drawImage' in ctx) {
+      ctx.drawImage(video, 0, 0, w, h);
+    } else {
+      console.log('right path');
+    }
     return canvas;
   }
 
@@ -166,7 +171,7 @@ export class PosenetPage implements OnInit, AfterViewInit {
       console.log('Success !');
     }).catch(e => {
       console.error('An error occurred :', e);
-    })
+    });
   }
 
   processRight(){
@@ -193,7 +198,7 @@ export class PosenetPage implements OnInit, AfterViewInit {
 
   // tslint:disable-next-line:no-any
   private async estimate(img: any): Promise<void> {
-    const flipHorizontal = true;
+    const flipHorizontal = false;
     const model = await this.modelPromise;
     const poses = await model.estimatePoses(img, {
       flipHorizontal,
