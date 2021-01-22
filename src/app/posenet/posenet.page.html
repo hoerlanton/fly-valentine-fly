@@ -2,16 +2,17 @@
   <ion-toolbar style="padding: 5px; vertical-align: center">
   <ion-row>
     <ion-col size="4" class="ion-align-self-start;" style="vertical-align: center">
-        <span style="font-size: large; margin-left: 10px; align-items: center"><b>Flieg Valentin Flieg</b></span><img src="../../assets/fly-valentine-fly.png" style="width: 50px; height: 50px; align-items: center" alt="Valentine the bird"/>
+        <span style="font-size: large; margin-left: 10px; align-items: center"><b>Flieg Valentin Flieg</b></span><img src="../../assets/fly-valentine-fly.png" style="width: 50px; align-items: center" alt="Valentine the bird"/>
     </ion-col>
-    <ion-col size="4" class="ion-align-self-center" style="align-content: center">
-        <span style="color: lightcoral; text-align: center"><b>     Achtung:</b> Achte darauf, dass deine Arme und Kopf immer im Bild sind.</span>
-    </ion-col>
+      <ion-col  size="4" class="ion-align-self-center" style="align-content: center; text-align: center;">
+          <ion-button *ngIf="running === false" (click)="play()" color="dark">Jetzt spiel starten!</ion-button>
+      </ion-col>
     <ion-col size="4" class="ion-align-self-end">
         <ion-button (click)="showRules()" color="dark" style="float: right;">Regeln anzeigen👇🏻</ion-button>
     </ion-col>
   </ion-row>
     <div *ngIf="showRulesToggle" style="padding: 10px; background-color: lightgrey; border-radius: 5px; text-align: center; align-items: center">
+        <span style="color: lightcoral; text-align: center"><b>     Achtung:</b> Achte darauf, dass deine Arme und Kopf immer im Bild sind.</span><br>
         <span style="font-size: medium; text-align: center; margin-left: 20px; padding-left: 20px;">
         <b>Regeln:</b>
         </span><br>
@@ -59,11 +60,6 @@
       <div #canvasContainer2 class="ion-text-center canvasContainer2" >
           <video autoplay="true" id="videoElement" style="border-radius: 10px; width: auto; height: auto; border: #7f3f97 solid 5px; background-image: url('https://res.cloudinary.com/dybehptfr/image/upload/v1611340683/pexels-photo-3807737_znzahg.jpg');"></video>
       </div>
-    </ion-row>
-    <ion-row style="margin-top: -25px" *ngIf="running === false">
-        <ion-col size="12" class="ion-align-self-center" style="align-content: center; text-align: center;">
-            <ion-button (click)="play()" color="dark">Jetzt spiel starten!</ion-button>
-        </ion-col>
     </ion-row>
 </ion-content>
 
