@@ -15,7 +15,7 @@ ion-footer {
 }
 
 #videoElement {
-  width: 500px;
-  height: 375px;
-  background-color: #666;
+  min-width: 500px;
+  min-height: 500px;
+  background-size: cover;
 }
