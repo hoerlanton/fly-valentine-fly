@@ -11,7 +11,6 @@ import Speech from 'speak-tts';
 })
 export class PosenetPage implements OnInit, AfterViewInit {
 
-  @ViewChild('fileSelector') fileInput!: ElementRef;
   @ViewChild('canvas', {static: true}) canvas!: ElementRef;
   @ViewChild('canvasContainer') canvasContainer!: ElementRef;
   ratio: number | null = null;
@@ -175,10 +174,6 @@ export class PosenetPage implements OnInit, AfterViewInit {
       await loading.dismiss();
     };
     img.src = url;
-  }
-
-  clickFileSelector(): void {
-    this.fileInput.nativeElement.click();
   }
 
   // tslint:disable-next-line:no-any

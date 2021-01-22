@@ -2,7 +2,7 @@
   <ion-toolbar style="padding: 5px; vertical-align: center">
   <ion-row>
     <ion-col size="4" class="ion-align-self-start;" style="vertical-align: center">
-        <span style="font-size: large; margin-left: 10px; align-items: center"><b>Flieg Valentin Flieg</b></span><img src="../../assets/fly-valentine-fly.png" style="width: 50px; length: 50px; align-items: center"/>
+        <span style="font-size: large; margin-left: 10px; align-items: center"><b>Flieg Valentin Flieg</b></span><img src="../../assets/fly-valentine-fly.png" style="width: 50px; height: 50px; align-items: center" alt="Valentine the bird"/>
     </ion-col>
     <ion-col size="4" class="ion-align-self-center" style="align-content: center">
         <span style="color: lightcoral; text-align: center"><b>     Achtung:</b> Achte darauf, dass deine Arme und Kopf immer im Bild sind.</span>
@@ -11,11 +11,11 @@
         <ion-button (click)="showRules()" color="dark" style="float: right;">Regeln anzeigen👇🏻</ion-button>
     </ion-col>
   </ion-row>
-    <div *ngIf="showRulesToggle" style="text-align: right; padding-top: 10px">
+    <div *ngIf="showRulesToggle" style="padding: 10px; background-color: lightgrey; border-radius: 5px; text-align: center; align-items: center">
         <span style="font-size: medium; text-align: center; margin-left: 20px; padding-left: 20px;">
         <b>Regeln:</b>
         </span><br>
-        <span style="font-size: medium; text-align: center; margin-left: 20px; padding-left: 20px;"> Hebe deine Arme, wenn das Objekt nach dem es fliegt, es fliegt ... oben eingeblendet fliegen kann
+        <span style="font-size: medium; text-align: center; margin-left: 20px; padding-left: 20px;"> Hebe deine Arme, wenn das Objekt nach dem es fliegt, es fliegt ... unten eingeblendet fliegen kann
         </span><br>
         <span style="font-size: medium; text-align: center; margin-left: 20px; padding-left: 20px;"> und lass die Arme unten, wenn es nicht fliegen kann.
         </span><br>
