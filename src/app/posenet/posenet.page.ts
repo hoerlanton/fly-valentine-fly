@@ -3,6 +3,7 @@ import {getAdjacentKeyPoints, load, PoseNet} from '@tensorflow-models/posenet';
 import {LoadingController} from '@ionic/angular';
 import Speech from 'speak-tts';
 
+
 @Component({
   selector: 'app-posenet',
   templateUrl: './posenet.page.html',
@@ -24,6 +25,7 @@ export class PosenetPage implements OnInit, AfterViewInit {
   handsDownInSeconds = 0;
   handsUpInSeconds = 0;
   points = 0;
+  showRulesToggle = false;
   speechCounter = 0;
   counter = 0;
   increaseCounter = false;
@@ -103,6 +105,18 @@ export class PosenetPage implements OnInit, AfterViewInit {
     n *= Math.random();
     JSON.stringify(obj, (key, value) => (key && --n | 0 || (k = key) || value));
     return {key: k, value: obj[k]};
+  }
+
+  // tslint:disable-next-line:typedef
+  showRules(){
+    console.log('showRulesToggle');
+    if (this.showRulesToggle === false) {
+      this.showRulesToggle = true;
+      console.log('showRulesToggle True');
+    } else {
+      this.showRulesToggle = false;
+      console.log('showRulesToggle False');
+    }
   }
 
   capture(video, scaleFactor): HTMLCanvasElement {
