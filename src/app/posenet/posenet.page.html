@@ -24,31 +24,41 @@
 <ion-grid style="max-height: 170px">
   <ion-row style="margin-top: -25px">
     <ion-col size="4" class="ion-align-self-start">
-      <p style="position: center; padding: 5px; background-color: #7f3f97; border-radius: 5px; color: #ffffff; text-align: center; vertical-align: center; min-height: 70px; font-size: xx-large">{{points}} / 6</p>
+      <p style="position: center; padding: 5px; background-color: #7f3f97; border-radius: 5px; color: #ffffff; padding-top: 15px; text-align: center; vertical-align: center; min-height: 70px; font-size: xx-large">{{points}} / 6 Punkte</p>
     </ion-col>
     <ion-col size="4" class="ion-align-self-center">
-      <p style="position: center; font-size: large; padding: 5px; border: #7f3f97 2px solid; border-radius: 5px; color: #4d4d4d; vertical-align: center; min-height: 70px; text-align: center;">{{text}}</p>
+      <p style="position: center; font-size: large; padding: 5px; border: #7f3f97 2px solid; border-radius: 5px; color: #4d4d4d; vertical-align: center; min-height: 70px; text-align: center;">Es fliegt, es fliegt ein/e: <b style="font-size: xx-large">{{text}}</b></p>
     </ion-col>
     <ion-col size="4"  class="ion-align-self-end">
       <p *ngIf="handsUp" style="font-size: large; margin-bottom: 32px;  padding: 10px; background-color: lightgrey; border-radius: 5px; color: #4d4d4d; max-height: 70px; text-align: center;">  🙌 {{handsUpInSeconds}} Sekunden von 4 Sekunden</p>
       <p *ngIf="handsDown" style="font-size: large; margin-bottom: 32px; padding: 10px; background-color: lightgrey; border-radius: 5px; color: #4d4d4d; max-height: 70px; text-align: center;"> 🧍‍♂️ {{handsDownInSeconds}} Sekunden von 4 Sekunden</p>
+      <p *ngIf="handsDown === 0 && handsUp === 0" style="font-size: large; margin-bottom: 32px; padding: 10px; background-color: lightgrey; border-radius: 5px; color: #4d4d4d; max-height: 70px;min-height: 69px; text-align: center;"> 0 Sekunden von 4 Sekunden</p>
     </ion-col>
   </ion-row>
   <ion-row style="margin-top: -25px">
-    <ion-col size="12" *ngIf="showResult" class="ion-align-self-center" style="font-size: xx-large">
+    <ion-col size="12" *ngIf="showResult || showCountdown" class="ion-align-self-center" style="font-size: xx-large; text-align: center; align-items: center;">
         <p *ngIf="result === 'Richtig 😊'" style="position: center;  margin: 10px; padding: 5px;  background-color: lightgreen; border-radius: 7px; color: #ffffff; text-align: center;">{{result}}</p>
         <p *ngIf="result === 'Falsch 😔'" style="position: center; margin: 10px; padding: 5px;  background-color: lightcoral; border-radius: 7px; color: #ffffff; text-align: center;">{{result}}</p>
         <p *ngIf="result === 'Gratulation - Du hast gewonnen!! 🥳'" style="position: center; margin: 10px; padding: 5px; background-color: #9b5ab4; border-radius: 7px; color: #ffffff; text-align: center;">{{result}}</p>
+        <p *ngIf="showCountdown" style="font-size: xxx-large; text-align: center; align-items: center; margin-top: 10px; background-color: #9b5ab4; border-radius: 5px; color: white;">{{counterCountdown}}</p>
     </ion-col>
   </ion-row>
 </ion-grid>
-<ion-content #content style="margin-top: -25px" style="display: none">
+<ion-content #content style="display: none">
   <div #canvasContainer class="ion-text-center canvasContainer">
     <canvas #canvas style="border-radius: 10px; width: auto; height: auto; border: #7f3f97 solid 5px"></canvas>
   </div>
 </ion-content>
-<ion-content #content2 style="margin-top: -25px;">
-  <div #canvasContainer2 class="ion-text-center canvasContainer2">
-      <video autoplay="true" id="videoElement" style="border-radius: 10px; width: auto; height: auto; border: #7f3f97 solid 5px"></video>
-  </div>
+<ion-content #content2>
+    <ion-row style="margin-top: 25px">
+      <div #canvasContainer2 class="ion-text-center canvasContainer2" >
+          <video autoplay="true" id="videoElement" style="border-radius: 10px; width: auto; height: auto; border: #7f3f97 solid 5px; background-color: transparent"></video>
+      </div>
+    </ion-row>
+    <ion-row style="margin-top: -25px">
+        <ion-col size="12" class="ion-align-self-center" style="align-content: center; text-align: center;">
+            <ion-button (click)="play()" color="dark">Jetzt spiel starten!</ion-button>
+        </ion-col>
+    </ion-row>
 </ion-content>
+

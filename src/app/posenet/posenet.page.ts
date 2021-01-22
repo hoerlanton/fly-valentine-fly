@@ -29,15 +29,18 @@ export class PosenetPage implements OnInit, AfterViewInit {
   speechCounter = 0;
   counter = 0;
   increaseCounter = false;
+  showCountdown = true;
   result = '';
   // tslint:disable-next-line:max-line-length
   objects = {Flugzeug: true, Katze: false, Vogel: true, Haus: false, Wolke: true, Baum: false, Stuhl: false, Brot: false, Smartphone: false, Geldtasche: false, Kuh: false, Papagei: true, Huhn: false, Schneeball: false, Adler: true, Fliege: true, Mücke: true, Helikopter: true, Kampfjet: true, Rakete: true};
   objectsLength = Object.keys(this.objects).length;
   objectChosen = this.chooseOne(this.objects);
-  text = 'Punkte | Es fliegt, es fliegt ein/e: ' + this.objectChosen.key;
+  text = this.objectChosen.key;
   timeLeft = 5;
   interval = 0;
   speech = new Speech();
+  gameStarted = false;
+  counterCountdown = 3;
 
   constructor(private readonly loadingController: LoadingController) {
     this.modelPromise = load({
@@ -73,29 +76,49 @@ export class PosenetPage implements OnInit, AfterViewInit {
     this.ctx = this.canvas.nativeElement.getContext('2d');
   }
 
-  ngAfterViewInit(): void {
-      const video = document.querySelector('#videoElement') as HTMLVideoElement;
-      if (navigator.mediaDevices.getUserMedia) {
-        navigator.mediaDevices.getUserMedia({video: true})
-            .then((stream) => {
-              video.srcObject = stream;
-              const FPS = 50;
-              setInterval(() => {
-                const type = 'image/png';
-                const videoElement = document.getElementById('videoElement');
-                const frame = this.capture(videoElement, 1);
-                if (frame.width !== 0) {
-                  this.drawImageScaled(frame);
-                  this.estimate(frame);
-                }
-              }, 10000 / FPS); // 200 ms is good video quality
-            })
-            .catch((error) => {
-              console.log('Something went wrong!');
-            });
-      } else {
-        alert('getUserMedia() is not supported by your browser');
+  // tslint:disable-next-line:typedef
+  myLoop() {
+    // tslint:disable-next-line:prefer-const
+    const root = this;
+    // tslint:disable-next-line:typedef only-arrow-functions
+    setTimeout(function() {
+      root.counterCountdown--;
+      if (root.counterCountdown >= 0) {
+        if (root.counterCountdown === 0) {
+          root.showCountdown = false;
+        } else {
+          root.myLoop();
+        }
       }
+    }, 400);
+  }
+
+  play(): void {
+    this.counterCountdown = 3;
+    this.showCountdown = true;
+    this.myLoop();
+    const video = document.querySelector('#videoElement') as HTMLVideoElement;
+    if (navigator.mediaDevices.getUserMedia) {
+      navigator.mediaDevices.getUserMedia({video: true})
+          .then((stream) => {
+            video.srcObject = stream;
+            const FPS = 50;
+            setInterval(() => {
+              const type = 'image/png';
+              const videoElement = document.getElementById('videoElement');
+              const frame = this.capture(videoElement, 1);
+              if (frame.width !== 0) {
+                this.drawImageScaled(frame);
+                this.estimate(frame);
+              }
+            }, 10000 / FPS); // 200 ms is good video quality
+          })
+          .catch((error) => {
+            console.log('Something went wrong!');
+          });
+    } else {
+      alert('getUserMedia() is not supported by your browser');
+    }
   }
 
   chooseOne(obj: any): any {
@@ -256,6 +279,7 @@ export class PosenetPage implements OnInit, AfterViewInit {
     } else {
       if (this.points === 6) {
         this.points = 0;
+        this.gameStarted = false;
       }
       this.counter = 0;
       this.showResult = false;
@@ -278,13 +302,14 @@ export class PosenetPage implements OnInit, AfterViewInit {
       this.result = 'Gratulation - Du hast gewonnen!! 🥳';
       this.showResult = true;
       this.increaseCounter = true;
-      this.text = 'Es fliegt, es fliegt ein/e: ' + this.objectChosen.key;
+      this.counterCountdown = 0;
+      this.text = this.objectChosen.key;
       if (this.speechCounter === 0) {
         this.speakText('Gratulation - Du hast gewonnen');
       }
       this.speechCounter++;
     } else {
-      this.text = 'Es fliegt, es fliegt ein/e: ' + this.objectChosen.key;
+      this.text = this.objectChosen.key;
       if (this.speechCounter === 0) {
         this.speakText(this.objectChosen.key);
       }
@@ -319,5 +344,8 @@ export class PosenetPage implements OnInit, AfterViewInit {
       this.ctx.strokeStyle = '#bada55';
       this.ctx.stroke();
     }
+  }
+
+  ngAfterViewInit(): void {
   }
 }
