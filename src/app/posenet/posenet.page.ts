@@ -40,7 +40,9 @@ export class PosenetPage implements OnInit, AfterViewInit {
   interval = 0;
   speech = new Speech();
   gameStarted = false;
-  counterCountdown = 3;
+  counterCountdown = 5;
+  running = false;
+  refreshIntervalId = null;
 
   constructor(private readonly loadingController: LoadingController) {
     this.modelPromise = load({
@@ -90,35 +92,37 @@ export class PosenetPage implements OnInit, AfterViewInit {
           root.myLoop();
         }
       }
-    }, 400);
+    }, 1000);
   }
 
   play(): void {
+    this.running = true;
     this.counterCountdown = 3;
+    this.points = 0;
     this.showCountdown = true;
     this.myLoop();
     const video = document.querySelector('#videoElement') as HTMLVideoElement;
     if (navigator.mediaDevices.getUserMedia) {
-      navigator.mediaDevices.getUserMedia({video: true})
-          .then((stream) => {
-            video.srcObject = stream;
-            const FPS = 50;
-            setInterval(() => {
-              const type = 'image/png';
-              const videoElement = document.getElementById('videoElement');
-              const frame = this.capture(videoElement, 1);
-              if (frame.width !== 0) {
-                this.drawImageScaled(frame);
-                this.estimate(frame);
-              }
-            }, 10000 / FPS); // 200 ms is good video quality
-          })
-          .catch((error) => {
-            console.log('Something went wrong!');
-          });
-    } else {
-      alert('getUserMedia() is not supported by your browser');
-    }
+        navigator.mediaDevices.getUserMedia({video: true})
+            .then((stream) => {
+              video.srcObject = stream;
+              const FPS = 50;
+              this.refreshIntervalId = setInterval(() => {
+                const type = 'image/png';
+                const videoElement = document.getElementById('videoElement');
+                const frame = this.capture(videoElement, 1);
+                if (frame.width !== 0) {
+                  this.drawImageScaled(frame);
+                  this.estimate(frame);
+                }
+              }, 10000 / FPS); // 200 ms is good video quality
+            })
+            .catch((error) => {
+              console.log('Something went wrong!');
+            });
+      } else {
+        alert('getUserMedia() is not supported by your browser');
+      }
   }
 
   chooseOne(obj: any): any {
@@ -132,13 +136,10 @@ export class PosenetPage implements OnInit, AfterViewInit {
 
   // tslint:disable-next-line:typedef
   showRules(){
-    console.log('showRulesToggle');
     if (this.showRulesToggle === false) {
       this.showRulesToggle = true;
-      console.log('showRulesToggle True');
     } else {
       this.showRulesToggle = false;
-      console.log('showRulesToggle False');
     }
   }
 
@@ -155,7 +156,7 @@ export class PosenetPage implements OnInit, AfterViewInit {
     if ('drawImage' in ctx) {
       ctx.drawImage(video, 0, 0, w, h);
     } else {
-      console.log('right path');
+      console.log('no imgae drawn');
     }
     return canvas;
   }
@@ -241,16 +242,6 @@ export class PosenetPage implements OnInit, AfterViewInit {
       flipHorizontal,
       decodingMethod: 'single-person'
     });
-    // console.log(JSON.stringify(this.objectChosen.key));
-    // console.log(this.objectChosen.value);
-    // console.log('poses');
-    // console.log(poses);
-    // console.log('counter');
-    // console.log(this.counter);
-    // console.log('handsup');
-    // console.log(this.handsUp);
-    // console.log('handsdown');
-    // console.log(this.handsDown);
     // Find out if hands are up
 
     if (poses && poses[0].keypoints[0]) {
@@ -300,6 +291,8 @@ export class PosenetPage implements OnInit, AfterViewInit {
 
     if (this.points === 6) {
       this.result = 'Gratulation - Du hast gewonnen!! 🥳';
+      clearInterval(this.refreshIntervalId);
+      this.running = false;
       this.showResult = true;
       this.increaseCounter = true;
       this.counterCountdown = 0;
@@ -323,15 +316,17 @@ export class PosenetPage implements OnInit, AfterViewInit {
         const x = keypoint.position.x * this.ratio;
         const y = keypoint.position.y * this.ratio;
 
-        // this.ctx.beginPath();
-        // this.ctx.arc(x, y, 5, 0, 2 * Math.PI, false);
-        // this.ctx.lineWidth = 3;
-        // this.ctx.strokeStyle = '#9048ac';
-        // this.ctx.stroke();
+        this.ctx.beginPath();
+        this.ctx.arc(x, y, 5, 0, 2 * Math.PI, false);
+        this.ctx.lineWidth = 3;
+        this.ctx.strokeStyle = '#9048ac';
+        this.ctx.stroke();
       }
 
       const adjacentKeyPoints = getAdjacentKeyPoints(pose.keypoints, 0.2);
-      // adjacentKeyPoints.forEach(keypoints => this.drawSegment(keypoints[0].position, keypoints[1].position));
+      if (this.counterCountdown >= 0) {
+       // adjacentKeyPoints.forEach(keypoints => this.drawSegment(keypoints[0].position, keypoints[1].position));
+      }
     }
   }
 
