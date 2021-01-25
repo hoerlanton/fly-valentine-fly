@@ -49,7 +49,7 @@ app.post('/api/score', function(req, res){
     } catch (e) {
         return res.status(400).json({ error: error.toString() });
     }
-    return res.send('success');
+    return res.status(200);
 });
 
 // Start the app by listening on the default Heroku port

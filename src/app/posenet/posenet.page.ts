@@ -107,6 +107,7 @@ export class PosenetPage implements OnInit, AfterViewInit {
   play(): void {
     this.running = true;
     this.gameFinished = false;
+    this.showResult = false;
     this.counterCountdown = 3;
     this.points = 0;
     this.showCountdown = true;
