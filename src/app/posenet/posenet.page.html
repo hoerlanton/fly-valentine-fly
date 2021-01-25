@@ -8,35 +8,34 @@
           <ion-button *ngIf="running === false" (click)="play()" color="dark">Jetzt spiel starten!</ion-button>
       </ion-col>
     <ion-col size="4" class="ion-align-self-end">
-        <ion-button (click)="showRules()" color="dark" style="float: right;">Vor dem Spiel lesen👇🏻</ion-button>
+        <ion-button *ngIf="showRulesToggle === false" (click)="showRules()" color="dark" style="float: right;">Vor dem Spiel lesen👇🏻</ion-button>
+        <ion-button *ngIf="showRulesToggle" (click)="showRules()" color="dark" style="float: right;">Vor dem Spiel lesen☝🏻</ion-button>
         <ion-button (click)="showLeaderboard()" color="dark" style="float: right;">Rangliste anzeigen</ion-button>
     </ion-col>
   </ion-row>
     <div *ngIf="showRulesToggle" style="padding: 10px; background-color: lightgrey; border-radius: 5px; text-align: center; align-items: center">
-        <span style="color: indianred; text-align: center"><b>     Achtung:</b> Achte darauf, dass deine Arme und Kopf immer im Bild sind.</span><br>
-        <span style="font-size: medium; text-align: center; margin-left: 20px; padding-left: 20px;">
-        <b>Regeln:</b>
-        </span><br>
-        <span style="font-size: medium; text-align: center; margin-left: 20px; padding-left: 20px;"> Hebe deine Arme, wenn das Objekt nach dem es fliegt, es fliegt ... unten eingeblendet fliegen kann
-        </span><br>
-        <span style="font-size: medium; text-align: center; margin-left: 20px; padding-left: 20px;"> und lass die Arme unten, wenn es nicht fliegen kann.
-        </span><br>
-        <span style="font-size: medium; text-align: center; margin-left: 20px; padding-left: 20px;">So sammelst Punkte.
-        </span><br>
-        <span style="font-size: medium; text-align: center; margin-left: 20px; padding-left: 20px;"> Bei 6 Punkten hast du gewonnen!
-        </span>
-        <ion-item style="margin: 10px">
-            <ion-label>Wie schnell soll das Spiel sein?</ion-label>
-            <ion-range ticks="true" [(ngModel)]="pace" color="dark" min="1" max="4" step="1" snaps="true"></ion-range>
-        </ion-item>
-        <span style="font-size: medium; text-align: center; margin-left: 20px; padding-left: 20px;"> Umso schneller das Spiel, umso mehr Punkte erhältst du!
-        </span>
-        <ion-item style="margin: 10px">
-            <ion-label>Anzahl der Punkte bis Gewinn: </ion-label>
-            <ion-input type="number" [(ngModel)]="pointsToReach" placeholder="4" name="pointsToReach"></ion-input>
-        </ion-item>
-        <span style="font-size: medium; text-align: center; margin-left: 20px; padding-left: 20px;"> Umso mehr Punkte du erreichst, umso mehr Punkte erhälts du!
-        </span>
+        <ion-row style="border-radius: 3px; border: #6e6e70 1px solid; margin: 5px; padding: 5px; background-color: white;">
+            <span style="font-size: medium; text-align: center; margin-left: 20px; padding-left: 20px;"><b>Regeln:</b><br>Hebe deine Arme, wenn das Objekt nach dem es fliegt, es fliegt ... unten eingeblendet fliegen kann und lass die Arme unten, wenn es nicht fliegen kann. So sammelst Punkte. Bei 6 Punkten hast du gewonnen!</span>
+            <span style="color: indianred; text-align: center"><b> Achtung:</b> Achte darauf, dass deine Arme und Kopf immer im Bild sind.</span>
+        </ion-row>
+        <ion-row>
+            <ion-col size="5" offset="1" style="border-radius: 3px; border: #6e6e70 1px solid; margin: 5px">
+                <ion-item style="margin: 10px">
+                    <p>Anzahl der Punkte bis Gewinn: </p>
+                    <ion-input type="number" [(ngModel)]="pointsToReach" placeholder="4" name="pointsToReach"></ion-input>
+                </ion-item>
+                <span style="font-size: medium; text-align: center; margin-left: 20px; padding-left: 20px; float: right"> <b>Hinweis: </b>Umso mehr Punkte du erreichst, umso mehr Punkte erhälts du!
+               </span>
+            </ion-col>
+            <ion-col size="5"  style="border-radius: 3px; border: #6e6e70 1px solid; margin: 5px">
+                <ion-item style="margin: 10px">
+                    Schnell<ion-range ticks="true" [(ngModel)]="pace" color="dark" min="1" max="4" step="1" snaps="true"></ion-range>
+                    Langsam<br>
+                </ion-item>
+                <span style="font-size: medium; text-align: center; margin-left: 20px; padding-left: 20px; float: right"> <b>Hinweis: </b>Umso schneller das Spiel, umso mehr Punkte erhältst du!
+                </span>
+            </ion-col>
+        </ion-row>
     </div>
   </ion-toolbar>
 </ion-header>
