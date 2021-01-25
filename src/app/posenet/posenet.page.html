@@ -9,6 +9,7 @@
       </ion-col>
     <ion-col size="4" class="ion-align-self-end">
         <ion-button (click)="showRules()" color="dark" style="float: right;">Regeln anzeigen👇🏻</ion-button>
+        <ion-button (click)="showLeaderboard()" color="dark" style="float: right;">Rangliste anzeigen</ion-button>
     </ion-col>
   </ion-row>
     <div *ngIf="showRulesToggle" style="padding: 10px; background-color: lightgrey; border-radius: 5px; text-align: center; align-items: center">
@@ -24,6 +25,11 @@
         </span><br>
         <span style="font-size: medium; text-align: center; margin-left: 20px; padding-left: 20px;"> Bei 6 Punkten hast du gewonnen!
         </span>
+        <ion-item>
+            <ion-range dualKnobs="true" min="1" max="4" step="1" snaps="true"></ion-range>
+            <ion-icon size="small" slot="start" name="speedometer-outline"></ion-icon>
+            <ion-icon slot="end" name="speedometer-outline"></ion-icon>
+        </ion-item>
     </div>
   </ion-toolbar>
 </ion-header>
@@ -57,8 +63,21 @@
 </ion-content>
 <ion-content #content2>
     <ion-row style="margin-top: 25px">
-      <div #canvasContainer2 class="ion-text-center canvasContainer2" >
+      <div *ngIf="gameFinished === false" #canvasContainer2 class="ion-text-center canvasContainer2" >
           <video autoplay="true" id="videoElement" style="border-radius: 10px; width: auto; height: auto; border: #7f3f97 solid 5px; background-image: url('https://res.cloudinary.com/dybehptfr/image/upload/v1611340683/pexels-photo-3807737_znzahg.jpg');"></video>
+      </div>
+      <div *ngIf="gameFinished === false" >
+        <form (ngSubmit)="submitScore()">
+            <ion-item>
+                <ion-label>Name</ion-label>
+                <ion-input type="text" [(ngModel)]="score.name" name="name"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label>Alter</ion-label>
+                <ion-input type="text" [(ngModel)]="score.age" name="name"></ion-input>
+            </ion-item>
+            <button ion-button type="submit" block>Ergebnis teilen</button>
+        </form>
       </div>
     </ion-row>
 </ion-content>

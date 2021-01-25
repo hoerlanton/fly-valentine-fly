@@ -2,7 +2,9 @@ import {Component, ElementRef, OnInit, ViewChild, AfterViewInit} from '@angular/
 import {getAdjacentKeyPoints, load, PoseNet} from '@tensorflow-models/posenet';
 import {LoadingController} from '@ionic/angular';
 import Speech from 'speak-tts';
-
+import {MainService} from '../main.service';
+import * as moment from 'moment';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-posenet',
@@ -38,12 +40,22 @@ export class PosenetPage implements OnInit, AfterViewInit {
   timeLeft = 5;
   interval = 0;
   speech = new Speech();
-  gameStarted = false;
+  gameFinished = false;
   counterCountdown = 5;
   running = false;
   refreshIntervalId = null;
+  mistakes = 0;
+  pace = 4;
+  score = {
+    age: 0,
+    name: 'Name',
+    score: 0,
+    dateTime: moment().format()
+  };
 
-  constructor(private readonly loadingController: LoadingController) {
+  constructor(private readonly loadingController: LoadingController,
+              private mainService: MainService,
+              private router: Router) {
     this.modelPromise = load({
       architecture: 'MobileNetV1',
       outputStride: 8,
@@ -96,6 +108,7 @@ export class PosenetPage implements OnInit, AfterViewInit {
 
   play(): void {
     this.running = true;
+    this.gameFinished = false;
     this.counterCountdown = 3;
     this.points = 0;
     this.showCountdown = true;
@@ -227,6 +240,7 @@ export class PosenetPage implements OnInit, AfterViewInit {
     this.increaseCounter = true;
     this.objectChosen = this.chooseOne(this.objects);
     this.speechCounter = 0;
+    this.mistakes++;
   }
 
   // tslint:disable-next-line:no-any
@@ -265,7 +279,6 @@ export class PosenetPage implements OnInit, AfterViewInit {
     } else {
       if (this.points === 6) {
         this.points = 0;
-        this.gameStarted = false;
       }
       this.counter = 0;
       this.showResult = false;
@@ -274,19 +287,20 @@ export class PosenetPage implements OnInit, AfterViewInit {
 
     this.showInstructions = true;
     // Different scenarios can occur. Adjust Feedback and points according to scenario
-    if (this.handsUp > 20 && this.objectChosen.value === true) {
+    if (this.handsUp > 5 * this.pace && this.objectChosen.value === true) {
       this.processRight();
-    } else if (this.handsDown > 20 && this.objectChosen.value === false) {
+    } else if (this.handsDown > 5 * this.pace && this.objectChosen.value === false) {
       this.processRight();
-    } else if (this.handsUp > 20 && this.objectChosen.value === false) {
+    } else if (this.handsUp > 5 * this.pace && this.objectChosen.value === false) {
       this.processWrong();
-    } else if (this.handsDown > 20 && this.objectChosen.value === true) {
+    } else if (this.handsDown > 5 * this.pace && this.objectChosen.value === true) {
       this.processWrong();
     }
 
     if (this.points === 6) {
       this.result = 'Gratulation - Du hast gewonnen!! 🥳';
       clearInterval(this.refreshIntervalId);
+      this.gameFinished = true;
       this.running = false;
       this.showResult = true;
       this.increaseCounter = true;
@@ -334,6 +348,16 @@ export class PosenetPage implements OnInit, AfterViewInit {
       this.ctx.strokeStyle = '#bada55';
       this.ctx.stroke();
     }
+  }
+
+  submitScore(): void {
+    this.score.score = this.points - (this.mistakes * 2) * this.pace;
+    this.score.dateTime = moment().format();
+    this.mainService.postScore(this.score);
+  }
+
+  showLeaderboard(): void {
+    this.router.navigate(['/leaderboard']);
   }
 
   ngAfterViewInit(): void {
