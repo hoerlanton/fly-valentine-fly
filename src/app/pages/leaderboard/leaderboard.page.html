@@ -1,16 +1,31 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>leaderboard</ion-title>
-  </ion-toolbar>
+    <ion-toolbar style="padding: 5px; vertical-align: center">
+      <ion-row>
+        <ion-col size="4" class="ion-align-self-start;" style="vertical-align: center">
+          <span style="font-size: large; margin-left: 10px; align-items: center"><b>Flieg Valentin Flieg</b></span><img src="../../assets/fly-valentine-fly.png" style="width: 50px; align-items: center" alt="Valentine the bird"/>
+        </ion-col>
+        <ion-col size="4" class="ion-align-self-center" style="vertical-align: center; text-align: center">
+          <h1>Rangliste</h1>
+        </ion-col>
+        <ion-col  size="4" class="ion-align-self-end">
+          <ion-button (click)="backToGame()" style="float: right" color="dark">Zurück zum Spiel</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-list *ngFor="let scoreFromUser of allScores; index as i;">
-    <ion-label>
-      <h3>Name: {{scoreFromUser.name}}</h3>
-      <h2>Punkte: {{scoreFromUser.score}}</h2>
-      <h2>Alter: {{scoreFromUser.age}}</h2>
-      <h2>Datum: {{scoreFromUser.dateTime}}</h2>
-    </ion-label>
+  <ion-list lines="full" inset="true" *ngFor="let scoreFromUser of allScores; index as i;">
+    <ion-item>
+      <ion-avatar slot="start">
+        <h1 style="margin-top: -10px; background-color: #7f3f97; border-radius: 50%; text-align: center; color: white;">{{i+1}}</h1>
+      </ion-avatar>
+      <ion-label>
+        <h2>Name: {{scoreFromUser.name}}</h2>
+        <h3>Punkte: {{scoreFromUser.score}}</h3>
+        <h3>Alter: {{scoreFromUser.age}} Jahre</h3>
+        <h3>Datum: {{scoreFromUser.dateTime}}</h3>
+      </ion-label>
+      </ion-item>
   </ion-list>
 </ion-content>

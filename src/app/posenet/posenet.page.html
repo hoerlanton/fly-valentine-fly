@@ -8,12 +8,12 @@
           <ion-button *ngIf="running === false" (click)="play()" color="dark">Jetzt spiel starten!</ion-button>
       </ion-col>
     <ion-col size="4" class="ion-align-self-end">
-        <ion-button (click)="showRules()" color="dark" style="float: right;">Regeln anzeigen👇🏻</ion-button>
+        <ion-button (click)="showRules()" color="dark" style="float: right;">Vor dem Spiel lesen👇🏻</ion-button>
         <ion-button (click)="showLeaderboard()" color="dark" style="float: right;">Rangliste anzeigen</ion-button>
     </ion-col>
   </ion-row>
     <div *ngIf="showRulesToggle" style="padding: 10px; background-color: lightgrey; border-radius: 5px; text-align: center; align-items: center">
-        <span style="color: lightcoral; text-align: center"><b>     Achtung:</b> Achte darauf, dass deine Arme und Kopf immer im Bild sind.</span><br>
+        <span style="color: indianred; text-align: center"><b>     Achtung:</b> Achte darauf, dass deine Arme und Kopf immer im Bild sind.</span><br>
         <span style="font-size: medium; text-align: center; margin-left: 20px; padding-left: 20px;">
         <b>Regeln:</b>
         </span><br>
@@ -25,26 +25,33 @@
         </span><br>
         <span style="font-size: medium; text-align: center; margin-left: 20px; padding-left: 20px;"> Bei 6 Punkten hast du gewonnen!
         </span>
-        <ion-item>
-            <ion-range dualKnobs="true" min="1" max="4" step="1" snaps="true"></ion-range>
-            <ion-icon size="small" slot="start" name="speedometer-outline"></ion-icon>
-            <ion-icon slot="end" name="speedometer-outline"></ion-icon>
+        <ion-item style="margin: 10px">
+            <ion-label>Wie schnell soll das Spiel sein?</ion-label>
+            <ion-range ticks="true" [(ngModel)]="pace" color="dark" min="1" max="4" step="1" snaps="true"></ion-range>
         </ion-item>
+        <span style="font-size: medium; text-align: center; margin-left: 20px; padding-left: 20px;"> Umso schneller das Spiel, umso mehr Punkte erhältst du!
+        </span>
+        <ion-item style="margin: 10px">
+            <ion-label>Anzahl der Punkte bis Gewinn: </ion-label>
+            <ion-input type="number" [(ngModel)]="pointsToReach" placeholder="4" name="pointsToReach"></ion-input>
+        </ion-item>
+        <span style="font-size: medium; text-align: center; margin-left: 20px; padding-left: 20px;"> Umso mehr Punkte du erreichst, umso mehr Punkte erhälts du!
+        </span>
     </div>
   </ion-toolbar>
 </ion-header>
 <ion-grid style="max-height: 170px">
   <ion-row style="margin-top: -25px">
     <ion-col size="4" class="ion-align-self-start">
-      <p style="position: center; padding: 5px; background-color: #7f3f97; border-radius: 5px; color: #ffffff; padding-top: 15px; text-align: center; vertical-align: center; min-height: 70px; font-size: xx-large">{{points}} / 6 Punkte</p>
+      <p style="position: center; padding: 5px; background-color: #7f3f97; border-radius: 5px; color: #ffffff; padding-top: 15px; text-align: center; vertical-align: center; min-height: 70px; font-size: xx-large">{{points}} / {{pointsToReach}} Punkte</p>
     </ion-col>
     <ion-col size="4" class="ion-align-self-center">
       <p style="position: center; font-size: large; padding: 5px; border: #7f3f97 2px solid; border-radius: 5px; color: #4d4d4d; vertical-align: center; min-height: 70px; text-align: center;">Es fliegt, es fliegt ein/e: <b style="font-size: xx-large">{{text}}</b></p>
     </ion-col>
     <ion-col size="4" class="ion-align-self-end">
-      <p *ngIf="handsUp" style="font-size: large; margin-bottom: 32px;  padding: 10px; background-color: lightgrey; border-radius: 5px; color: #4d4d4d; min-height: 69px;max-height: 70px; text-align: center;">  🙌 {{handsUpInSeconds}} Sekunden von 4 Sekunden</p>
-      <p *ngIf="handsDown" style="font-size: large; margin-bottom: 32px; padding: 10px; background-color: lightgrey; border-radius: 5px; color: #4d4d4d; min-height: 69px;max-height: 70px; text-align: center;"> 🧍‍♂️ {{handsDownInSeconds}} Sekunden von 4 Sekunden</p>
-      <p *ngIf="handsDown === 0 && handsUp === 0" style="font-size: large; margin-bottom: 32px; padding: 10px; background-color: lightgrey; border-radius: 5px; color: #4d4d4d; min-height: 69px;max-height: 70px; text-align: center;"> 0 Sekunden von 4 Sekunden</p>
+      <p *ngIf="handsUp" style="font-size: large; margin-bottom: 32px;  padding: 10px; background-color: lightgrey; border-radius: 5px; color: #4d4d4d; min-height: 69px;max-height: 70px; text-align: center;">  🙌 {{handsUpInSeconds}} Sekunden von {{pace}} Sekunden</p>
+      <p *ngIf="handsDown" style="font-size: large; margin-bottom: 32px; padding: 10px; background-color: lightgrey; border-radius: 5px; color: #4d4d4d; min-height: 69px;max-height: 70px; text-align: center;"> 🧍‍♂️ {{handsDownInSeconds}} Sekunden von {{pace}} Sekunden</p>
+      <p *ngIf="handsDown === 0 && handsUp === 0" style="font-size: large; margin-bottom: 32px; padding: 10px; background-color: lightgrey; border-radius: 5px; color: #4d4d4d; min-height: 69px;max-height: 70px; text-align: center;"> 0 Sekunden von {{pace}} Sekunden</p>
     </ion-col>
   </ion-row>
   <ion-row style="margin-top: -25px">
@@ -61,24 +68,25 @@
     <canvas #canvas style="border-radius: 10px; width: auto; height: auto; border: #7f3f97 solid 5px"></canvas>
   </div>
 </ion-content>
-<ion-content #content2>
+<ion-content #content2 align="center">
     <ion-row style="margin-top: 25px">
       <div *ngIf="gameFinished === false" #canvasContainer2 class="ion-text-center canvasContainer2" >
           <video autoplay="true" id="videoElement" style="border-radius: 10px; width: auto; height: auto; border: #7f3f97 solid 5px; background-image: url('https://res.cloudinary.com/dybehptfr/image/upload/v1611340683/pexels-photo-3807737_znzahg.jpg');"></video>
       </div>
-      <div *ngIf="gameFinished === false" >
-        <form (ngSubmit)="submitScore()">
+      <ion-col *ngIf="gameFinished === true" size="8" offset="4">
+        <form (ngSubmit)="submitScore()" style="width: 50%; text-align: center; align-items: center">
+            <ion-label>{{scoreToDisplay}} Punkte</ion-label>
             <ion-item>
-                <ion-label>Name</ion-label>
-                <ion-input type="text" [(ngModel)]="score.name" name="name"></ion-input>
+                <ion-label>Name: </ion-label>
+                <ion-input type="text" [(ngModel)]="score.name" placeholder="Valentin Mustermann" name="name"></ion-input>
             </ion-item>
             <ion-item>
-                <ion-label>Alter</ion-label>
-                <ion-input type="text" [(ngModel)]="score.age" name="name"></ion-input>
+                <ion-label>Alter in Jahren: </ion-label>
+                <ion-input type="text" [(ngModel)]="score.age" placeholder="4" name="age"></ion-input>
             </ion-item>
-            <button ion-button type="submit" block>Ergebnis teilen</button>
+            <button type="submit" style="padding: 10px; margin: 10px; border-radius: 3px; background-color: #7f3f97; color: white" (click)="forwardToLeaderboard()">Ergebnis teilen</button>
         </form>
-      </div>
+      </ion-col>
     </ion-row>
 </ion-content>
 

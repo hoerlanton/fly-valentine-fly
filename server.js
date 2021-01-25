@@ -4,7 +4,8 @@ const path = require('path');
 const app = express();
 var bodyParser = require('body-parser');
 var MongoClient = require('mongodb').MongoClient;
-var url = 'mongodb://localhost/test';
+const url = process.env.MONGODB_URI || 'mongodb://localhost/test';
+
 
 // Serve only the static files form the dist directory
 app.use(express.static(__dirname + '/dist/app'));
@@ -16,12 +17,11 @@ app.get('/', function(req,res) {
 
 app.get('/api/leaderboard', function(req, res) {
     try {
-        console.log('leaderboard get called');
         MongoClient.connect(url, {useUnifiedTopology: true,
             useNewUrlParser: true}, function(err, db) {
             if (err) throw err;
             var dbo = db.db("test");
-            dbo.collection("scores").find({}).toArray(function(err, result) {
+            dbo.collection("scores").find({}).sort( { "score": -1 } ).toArray(function(err, result) {
                 if (err) console.log(err)
                 console.log(JSON.stringify(result));
                 res.status(201).send(JSON.stringify(result));
@@ -31,7 +31,6 @@ app.get('/api/leaderboard', function(req, res) {
     } catch (e) {
         return res.status(400).json({ error: error.toString() });
     }
-    // return res.send('success');
 });
 
 app.post('/api/score', function(req, res){

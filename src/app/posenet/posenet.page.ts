@@ -5,6 +5,7 @@ import Speech from 'speak-tts';
 import {MainService} from '../main.service';
 import * as moment from 'moment';
 import {Router} from '@angular/router';
+import {Score} from '../score';
 
 @Component({
   selector: 'app-posenet',
@@ -46,12 +47,9 @@ export class PosenetPage implements OnInit, AfterViewInit {
   refreshIntervalId = null;
   mistakes = 0;
   pace = 4;
-  score = {
-    age: 0,
-    name: 'Name',
-    score: 0,
-    dateTime: moment().format()
-  };
+  score: Score = new Score();
+  pointsToReach = 5;
+  scoreToDisplay = 0;
 
   constructor(private readonly loadingController: LoadingController,
               private mainService: MainService,
@@ -232,7 +230,6 @@ export class PosenetPage implements OnInit, AfterViewInit {
   }
 
   processWrong(){
-    this.points = 0;
     this.result = 'Falsch 😔';
     this.handsUp = 0;
     this.handsDown = 0;
@@ -277,7 +274,7 @@ export class PosenetPage implements OnInit, AfterViewInit {
     if (this.counter <= 10 && this.increaseCounter) {
       this.counter++;
     } else {
-      if (this.points === 6) {
+      if (this.points === this.pointsToReach) {
         this.points = 0;
       }
       this.counter = 0;
@@ -297,9 +294,10 @@ export class PosenetPage implements OnInit, AfterViewInit {
       this.processWrong();
     }
 
-    if (this.points === 6) {
+    if (this.points === this.pointsToReach) {
       this.result = 'Gratulation - Du hast gewonnen!! 🥳';
       clearInterval(this.refreshIntervalId);
+      this.scoreToDisplay = (this.points * 100 - this.mistakes * 100) / this.pace;
       this.gameFinished = true;
       this.running = false;
       this.showResult = true;
@@ -351,12 +349,17 @@ export class PosenetPage implements OnInit, AfterViewInit {
   }
 
   submitScore(): void {
-    this.score.score = this.points - (this.mistakes * 2) * this.pace;
+    this.score.score = (this.points * 100 - this.mistakes * 100) / this.pace;
     this.score.dateTime = moment().format();
     this.mainService.postScore(this.score);
+    this.mainService.addNewScore(this.score);
   }
 
   showLeaderboard(): void {
+    this.router.navigate(['/leaderboard']);
+  }
+
+  forwardToLeaderboard(): void {
     this.router.navigate(['/leaderboard']);
   }
 

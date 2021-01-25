@@ -1,14 +1,18 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
+import {Subject, Observable} from 'rxjs';
 import { Http } from '@angular/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MainService {
+  addNewScore$: Observable<any>;
+  private addNewScoreSubject = new Subject<any>();
 
   constructor(private http: HttpClient) {
+    this.addNewScore$ = this.addNewScoreSubject.asObservable();
   }
 
   // tslint:disable-next-line:typedef
@@ -20,22 +24,27 @@ export class MainService {
       age: score.age
     };
 
-    this.http.post('http://localhost:8080/api/score', data).pipe(
+    this.http.post('/api/score', data).pipe(
         map(res => res)
     ).subscribe(response => {
       console.log('POST Response:', response);
-      return response;
     });
   }
 
   // tslint:disable-next-line:typedef
   getAllScores() {
     return new Promise(resolve => {
-      this.http.get('http://localhost:8080/api/leaderboard/').subscribe(response => {
+      this.http.get('/api/leaderboard/').subscribe(response => {
         console.log('GET Response:', JSON.parse(JSON.stringify(response)));
         JSON.parse(JSON.stringify(response));
         resolve(response);
       });
     });
+  }
+
+  // tslint:disable-next-line:typedef
+  addNewScore(data) {
+    console.log(data);
+    this.addNewScoreSubject.next(data);
   }
 }
