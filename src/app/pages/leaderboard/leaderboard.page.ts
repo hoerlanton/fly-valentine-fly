@@ -32,6 +32,7 @@ export class LeaderboardPage implements OnInit, AfterViewInit {
   getLeaderboard(): void {
     this.allScores = [];
     this.mainService.getAllScores().then(response => {
+      // @ts-ignore
       for (let i = 0; i < response.length; i++) {
         this.allScores.push(response[i]);
         console.log(this.allScores);
