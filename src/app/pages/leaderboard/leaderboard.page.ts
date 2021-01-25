@@ -19,8 +19,7 @@ export class LeaderboardPage implements OnInit, AfterViewInit {
     );
   }
 
-  // tslint:disable-next-line:typedef
-  ngOnInit() {
+  ngOnInit(): void {
     this.getLeaderboard();
   }
 
@@ -30,10 +29,9 @@ export class LeaderboardPage implements OnInit, AfterViewInit {
     this.mainService.resetGame();
   }
 
-  getLeaderboard() {
+  getLeaderboard(): void {
     this.allScores = [];
     this.mainService.getAllScores().then(response => {
-      // @ts-ignore
       for (let i = 0; i < response.length; i++) {
         this.allScores.push(response[i]);
         console.log(this.allScores);

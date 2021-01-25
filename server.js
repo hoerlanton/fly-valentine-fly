@@ -6,7 +6,6 @@ var bodyParser = require('body-parser');
 var MongoClient = require('mongodb').MongoClient;
 const url = process.env.MONGODB_URI || 'mongodb://localhost/test';
 
-
 // Serve only the static files form the dist directory
 app.use(express.static(__dirname + '/dist/app'));
 app.use(bodyParser.json());
@@ -42,7 +41,6 @@ app.post('/api/score', function(req, res){
             const dbo = db.db("fly-valentine-fly");
             dbo.collection("scores").insertOne(score, function(err, result) {
                 if (err) throw err;
-                console.log("1 document inserted");
                 res.status(200).send(JSON.stringify(result));
                 db.close();
             });

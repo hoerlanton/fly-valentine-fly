@@ -33,12 +33,30 @@ export class PosenetPage implements OnInit, AfterViewInit {
   increaseCounter = false;
   showCountdown = true;
   result = '';
-  // tslint:disable-next-line:max-line-length
-  objects = {Flugzeug: true, Katze: false, Vogel: true, Haus: false, Wolke: true, Baum: false, Stuhl: false, Brot: false, Smartphone: false, Geldtasche: false, Kuh: false, Papagei: true, Huhn: false, Schneeball: false, Adler: true, Fliege: true, Mücke: true, Helikopter: true, Kampfjet: true, Rakete: true};
-  objectsLength = Object.keys(this.objects).length;
+  objects = {
+    Flugzeug: true,
+    Katze: false,
+    Vogel: true,
+    Haus: false,
+    Wolke: true,
+    Baum: false,
+    Stuhl: false,
+    Brot: false,
+    Smartphone: false,
+    Geldtasche: false,
+    Kuh: false,
+    Papagei: true,
+    Huhn: false,
+    Schneeball: false,
+    Adler: true,
+    Fliege: true,
+    Mücke: true,
+    Helikopter: true,
+    Kampfjet: true,
+    Rakete: true
+  };
   objectChosen = this.chooseOne(this.objects);
   text = this.objectChosen.key;
-  timeLeft = 5;
   interval = 0;
   speech = new Speech();
   gameFinished = false;
@@ -148,8 +166,7 @@ export class PosenetPage implements OnInit, AfterViewInit {
     return {key: k, value: obj[k]};
   }
 
-  // tslint:disable-next-line:typedef
-  showRules(){
+  showRules(): void {
     if (this.showRulesToggle === false) {
       this.showRulesToggle = true;
     } else {
@@ -211,8 +228,7 @@ export class PosenetPage implements OnInit, AfterViewInit {
       0, 0, img.width * this.ratio, img.height * this.ratio);
   }
 
-  // tslint:disable-next-line:typedef
-  speakText(textToSpeak) {
+  speakText(textToSpeak): void {
     this.speech.speak({
       text: textToSpeak,
     }).then(() => {
