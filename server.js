@@ -20,7 +20,7 @@ app.get('/api/leaderboard', function(req, res) {
         MongoClient.connect(url, {useUnifiedTopology: true,
             useNewUrlParser: true}, function(err, db) {
             if (err) throw err;
-            var dbo = db.db("test");
+            var dbo = db.db("fly-valentine-fly.hkduy.mongodb.net");
             dbo.collection("scores").find({}).sort( { "score": -1 } ).toArray(function(err, result) {
                 if (err) console.log(err)
                 console.log(JSON.stringify(result));
@@ -39,7 +39,7 @@ app.post('/api/score', function(req, res){
         MongoClient.connect(url, {useUnifiedTopology: true,
             useNewUrlParser: true}, function(err, db) {
             if (err) throw err;
-            const dbo = db.db("test");
+            const dbo = db.db("fly-valentine-fly.hkduy.mongodb.net");
             dbo.collection("scores").insertOne(score, function(err, res) {
                 if (err) throw err;
                 console.log("1 document inserted");
