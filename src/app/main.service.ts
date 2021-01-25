@@ -10,9 +10,12 @@ import { Http } from '@angular/http';
 export class MainService {
   addNewScore$: Observable<any>;
   private addNewScoreSubject = new Subject<any>();
+  resetGame$: Observable<any>;
+  private resetGameSubject = new Subject<any>();
 
   constructor(private http: HttpClient) {
     this.addNewScore$ = this.addNewScoreSubject.asObservable();
+    this.resetGame$ = this.resetGameSubject.asObservable();
   }
 
   // tslint:disable-next-line:typedef
@@ -46,5 +49,10 @@ export class MainService {
   addNewScore(data) {
     console.log(data);
     this.addNewScoreSubject.next(data);
+  }
+
+  // tslint:disable-next-line:typedef
+  resetGame() {
+    this.resetGameSubject.next();
   }
 }

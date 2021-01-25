@@ -60,6 +60,9 @@ export class PosenetPage implements OnInit, AfterViewInit {
       inputResolution: 400,
       multiplier: 0.5
     });
+    this.mainService.resetGame$.subscribe(() => {
+      this.gameFinished = false;
+    });
   }
 
   ngOnInit(): void {
@@ -350,10 +353,13 @@ export class PosenetPage implements OnInit, AfterViewInit {
   }
 
   submitScore(): void {
-    this.score.score = (this.points * 100 - this.mistakes * 100) / this.pace;
-    this.score.dateTime = moment().format();
-    this.mainService.postScore(this.score);
-    this.mainService.addNewScore(this.score);
+    console.log('Submit Score called');
+    if (this.gameFinished === true) {
+      this.score.score = (this.points * 100 - this.mistakes * 100) / this.pace;
+      this.score.dateTime = moment().format();
+      this.mainService.postScore(this.score);
+      this.mainService.addNewScore(this.score);
+    }
   }
 
   showLeaderboard(): void {

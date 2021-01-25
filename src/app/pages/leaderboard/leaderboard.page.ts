@@ -38,6 +38,7 @@ export class LeaderboardPage implements OnInit, AfterViewInit {
   // tslint:disable-next-line:typedef
   backToGame() {
     this.router.navigate(['/']);
+    this.mainService.resetGame();
   }
 
   getLeaderboard() {
