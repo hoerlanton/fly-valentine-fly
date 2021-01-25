@@ -40,16 +40,16 @@ app.post('/api/score', function(req, res){
             useNewUrlParser: true}, function(err, db) {
             if (err) throw err;
             const dbo = db.db("fly-valentine-fly");
-            dbo.collection("scores").insertOne(score, function(err, res) {
+            dbo.collection("scores").insertOne(score, function(err, result) {
                 if (err) throw err;
                 console.log("1 document inserted");
+                res.status(200).send(JSON.stringify(result));
                 db.close();
             });
         })
     } catch (e) {
         return res.status(400).json({ error: error.toString() });
     }
-    return res.status(200);
 });
 
 // Start the app by listening on the default Heroku port

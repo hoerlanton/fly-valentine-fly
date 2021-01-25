@@ -31,6 +31,7 @@ export class MainService {
         map(res => res)
     ).subscribe(response => {
       console.log('POST Response:', response);
+      this.addNewScoreSubject.next(data);
     });
   }
 
@@ -43,12 +44,6 @@ export class MainService {
         resolve(response);
       });
     });
-  }
-
-  // tslint:disable-next-line:typedef
-  addNewScore(data) {
-    console.log(data);
-    this.addNewScoreSubject.next(data);
   }
 
   // tslint:disable-next-line:typedef

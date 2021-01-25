@@ -14,20 +14,9 @@ export class LeaderboardPage implements OnInit, AfterViewInit {
   constructor(private mainService: MainService,
               private router: Router) {
     this.mainService.addNewScore$.subscribe((data) => {
-          this.allScores.push(data); // And he have data here too!
-          this.allScores.sort(this.compare);
+          this.getLeaderboard();
       }
     );
-  }
-
-  compare( a, b ): number {
-    if ( a.score < b.score ){
-      return 1;
-    }
-    if ( a.score > b.score ){
-      return -1;
-    }
-    return 0;
   }
 
   // tslint:disable-next-line:typedef

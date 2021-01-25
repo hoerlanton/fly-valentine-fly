@@ -358,7 +358,6 @@ export class PosenetPage implements OnInit, AfterViewInit {
       this.score.score = (this.points * 100 - this.mistakes * 100) / this.pace;
       this.score.dateTime = moment().format();
       this.mainService.postScore(this.score);
-      this.mainService.addNewScore(this.score);
     }
   }
 
