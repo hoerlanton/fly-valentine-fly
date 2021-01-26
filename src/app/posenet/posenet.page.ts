@@ -68,6 +68,7 @@ export class PosenetPage implements OnInit, AfterViewInit {
   score: Score = new Score();
   pointsToReach = 5;
   scoreToDisplay = 0;
+  mobileAccess = false;
 
   constructor(private readonly loadingController: LoadingController,
               private mainService: MainService,
@@ -84,6 +85,7 @@ export class PosenetPage implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
+    this.detectMob();
     // will throw an exception if not browser supported
     if (this.speech.hasBrowserSupport()) { // returns a boolean
       console.log('speech synthesis supported');
@@ -386,5 +388,12 @@ export class PosenetPage implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
+  }
+
+  detectMob(): void {
+    if ( ( window.innerWidth <= 800 ) && ( window.innerHeight <= 900 ) ) {
+      console.log('Mobile');
+      this.mobileAccess = true;
+    }
   }
 }
