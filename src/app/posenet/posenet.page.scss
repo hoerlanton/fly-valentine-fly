@@ -130,19 +130,6 @@ ion-content {
   }
 }
 
-@media (max-width: 1300px) {
-  .bird-bubble-text {
-    position: absolute;
-    left: -22vw;
-    right: 0;
-    text-align: center;
-    z-index: 1;
-    font-size: medium;
-    margin: -11vh auto auto;
-    max-width: 9vw;
-  }
-}
-
 .bird-bubble-text {
   position: absolute;
   left: -22vw;
@@ -150,7 +137,7 @@ ion-content {
   text-align: center;
   z-index: 1;
   margin: -9vh auto auto;
-  max-width: 9vw;
+  max-width: 11vw;
 }
 
 .object-bird-house {
@@ -160,4 +147,32 @@ ion-content {
   text-align: center;
   z-index: 1;
   margin: -3vh auto auto 50vw;
+  max-height: 100px;
+  max-width: 100px;
 }
+
+@media (max-width: 1400px) {
+  .bird-bubble-text {
+    position: absolute;
+    left: -22vw;
+    right: 0;
+    text-align: center;
+    z-index: 1;
+    font-size: medium;
+    margin: -11vh auto auto;
+    max-width: 11vw;
+  }
+
+  .object-bird-house {
+    position: absolute;
+    left: 0;
+    right: 0;
+    text-align: center;
+    z-index: 1;
+    margin: -5vh auto auto 50vw;
+    max-height: 50px;
+    max-width: 50px;
+  }
+
+}
+

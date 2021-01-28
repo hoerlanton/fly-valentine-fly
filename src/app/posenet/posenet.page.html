@@ -3,7 +3,7 @@
         <canvas #canvas style="border-radius: 10px; width: auto; height: auto; border: #7f3f97 solid 5px"></canvas>
     </div>
 </ion-content>
-<div *ngIf="mobileAccess">
+<div *ngIf="mobileAccess" style="background-color: #1de0b6; min-height: 100%">
     <ion-card>
         <a href="http://www.play-with-valentine.com">
             <img src="../../assets/fly-valentine-fly.png" />
@@ -35,7 +35,7 @@
         </ion-col>
       </ion-row>
         <div *ngIf="showRulesToggle" class="rules">
-            <ion-row style="border-radius: 3px; border: #6e6e70 5px solid; margin: 5px; padding: 5px; background-color: white; min-height: 150px">
+            <ion-row style="border-radius: 3px; border: #6e6e70 5px solid; margin: 5px; padding: 30px; background-color: white; min-height: 150px">
                 <span style="font-family: 'Comic Sans MS', 'Chalkboard SE', 'Comic Neue', sans-serif; font-size: xx-large; text-align: center; margin-left: 20px; padding-left: 20px;min-width: 100%"><b>Regeln:</b><br><br>Hebe deine Arme, wenn das Objekt nach dem es fliegt, es fliegt ... unten eingeblendet fliegen kann und lass die Arme unten, wenn es nicht fliegen kann. So sammelst Punkte. Bei 6 Punkten hast du gewonnen!</span>
                 <span style="color: indianred; text-align: center; min-width: 100%; font-size: xx-large"><b> Achtung:</b> Achte darauf, dass deine Arme und Kopf immer im Bild sind.</span>
             </ion-row>
@@ -85,7 +85,7 @@
         </ion-col>
       </ion-row>
     </ion-grid>
-    <ion-content #content2 align="center" style="min-height: 60vh">
+    <ion-content #content2 align="center" style="min-height: 70vh">
         <ion-row style="margin-top: 25px">
             <ion-col size="4">
               <div *ngIf="gameFinished === false" #canvasContainer2 class="ion-text-start canvasContainer2" >
@@ -104,7 +104,7 @@
         <ion-row>
         <ion-col size="12" class="ion-align-self-center">
             <p class="bird-bubble-text" style="position: center; z-index: 5; font-size: large; padding: 5px; vertical-align: center; min-height: 70px; text-align: center;">Es fliegt, es fliegt ein/e: <b style="font-size: x-large">{{text}}</b></p>
-            <img *ngIf="gameFinished === false" class="object-bird-house" src='{{ "../../assets/" + text + ".png" }}' style="position: absolute; max-height: 100px; max-width: 100px;">
+            <img *ngIf="gameFinished === false" class="object-bird-house" src='{{ "../../assets/" + text + ".png" }}' style="position: absolute;">
         </ion-col>
         </ion-row>
         <ion-row *ngIf="gameFinished === true" style="background-color: #1de0b6; border-radius: 10px; border: 5px solid gray">

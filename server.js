@@ -22,7 +22,6 @@ app.get('/api/leaderboard', function(req, res) {
             var dbo = db.db("fly-valentine-fly");
             dbo.collection("scores").find({}).sort( { "score": -1 } ).toArray(function(err, result) {
                 if (err) console.log(err)
-                console.log(JSON.stringify(result));
                 res.status(201).send(JSON.stringify(result));
                 db.close();
             });
