@@ -13,7 +13,7 @@ ion-footer {
   margin-top: 20px;
 }
 
-.main-headline, .countdown, .result {
+.main-headline, .countdown, .result, .points-result {
   font-family: 'Comic Sans MS', 'Chalkboard SE', 'Comic Neue', sans-serif;
   color: white;
   text-shadow: 0 0 5px black;
@@ -96,23 +96,56 @@ ion-content {
 
 .bird-house {
    position: absolute;
-   margin: auto;
-   left: 0;
+    left: 0;
    right: 0;
    text-align: center;
    z-index: -1;
-   margin-top: -20vh;
-   max-width: 40vw;
+  margin: -20vh auto auto;
+  max-width: 40vw;
+  font-size: large;
+}
+
+@media (max-width: 2000px) {
+  .bird-house {
+    position: absolute;
+    left: 0;
+    right: 0;
+    text-align: center;
+    z-index: -1;
+    margin: -17vh auto auto;
+    max-width: 40vw;
+    font-size: large;
+  }
+}
+
+@media (max-width: 1300px) {
+  .bird-bubble-text {
+    position: absolute;
+    left: -22vw;
+    right: 0;
+    text-align: center;
+    z-index: 1;
+    font-size: medium;
+    margin: -11vh auto auto;
+    max-width: 9vw;
+  }
 }
 
 .bird-bubble-text {
   position: absolute;
-  margin: auto;
   left: -22vw;
   right: 0;
   text-align: center;
   z-index: 1;
-  margin-top: -10vh;
-  max-width: 8vw;
+  margin: -9vh auto auto;
+  max-width: 9vw;
+}
 
+.object-bird-house {
+  position: absolute;
+  left: 0;
+  right: 0;
+  text-align: center;
+  z-index: 1;
+  margin: -3vh auto auto 50vw;
 }

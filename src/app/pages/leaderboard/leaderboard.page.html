@@ -15,7 +15,7 @@
 </ion-header>
 
 <ion-content>
-  <ion-list lines="full" inset="true" *ngFor="let scoreFromUser of allScores; index as i;">
+  <ion-list class="item-card" inset="true" *ngFor="let scoreFromUser of allScores; index as i;">
     <ion-item>
       <ion-avatar slot="start">
         <h1 style="margin-top: -10px; background-color: #1de0b6; border-radius: 50%; text-align: center; color: white;">{{i+1}}</h1>

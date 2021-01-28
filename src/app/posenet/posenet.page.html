@@ -89,35 +89,37 @@
         <ion-row style="margin-top: 25px">
             <ion-col size="4">
               <div *ngIf="gameFinished === false" #canvasContainer2 class="ion-text-start canvasContainer2" >
-                  <video autoplay="true" id="videoElement" style="border-radius: 10px; max-width: 380px; border: #6a6a6f solid 5px; background-position: center; background-repeat: no-repeat; background-image: url('https://res.cloudinary.com/dybehptfr/image/upload/v1611849780/44285345_xl_yiq6ix.jpg');"></video>
+                  <video autoplay="true" id="videoElement" style="border-radius: 10px; max-width: 20vw; border: #6a6a6f solid 5px; background-position: center; background-repeat: no-repeat; background-image: url('https://res.cloudinary.com/dybehptfr/image/upload/v1611849780/44285345_xl_yiq6ix.jpg');"></video>
               </div>
             </ion-col>
             <ion-col size="4" offset="4" class="ion-text-end" style="align-items: center">
-                <div *ngIf="handsUp > 0" style="border-radius: 10px; width: 380px; height: 280px; border: #6a6a6f solid 5px; background-position: center; background-color: white; background-size: contain; background-repeat: no-repeat; background-image: url('https://res.cloudinary.com/dybehptfr/image/upload/v1611846194/man-hands-up_yi04kp.png');"></div>
-                <div *ngIf="handsDown > 0" style="border-radius: 10px; width: 380px; height: 280px; border: #6a6a6f solid 5px;  background-position: center; background-color: white; background-size: contain; background-repeat: no-repeat; background-image: url('https://res.cloudinary.com/dybehptfr/image/upload/v1611847295/man-hands-down_Kopie_uu8ojy.png');"></div>
-                <div *ngIf="handsDown === 0 && handsUp === 0" style="border-radius: 10px; width: 380px; height: 280px; border: #6a6a6f solid 5px;  background-position: center; background-color: white; background-size: cover; background-repeat: no-repeat;"></div>
+                <div *ngIf="handsUp > 0" style="border-radius: 10px; width: 380px; max-width: 20vw; height: 280px; border: #6a6a6f solid 5px; background-position: center; background-color: white; background-size: contain; background-repeat: no-repeat; background-image: url('https://res.cloudinary.com/dybehptfr/image/upload/v1611846194/man-hands-up_yi04kp.png');"></div>
+                <div *ngIf="handsDown > 0" style="border-radius: 10px; width: 380px;  max-width: 20vw;height: 280px; border: #6a6a6f solid 5px;  background-position: center; background-color: white; background-size: contain; background-repeat: no-repeat; background-image: url('https://res.cloudinary.com/dybehptfr/image/upload/v1611847295/man-hands-down_Kopie_uu8ojy.png');"></div>
+                <div *ngIf="handsDown === 0 && handsUp === 0" style="border-radius: 10px; width: 380px;  max-width: 20vw; height: 280px; border: #6a6a6f solid 5px;  background-position: center; background-color: white; background-size: cover; background-repeat: no-repeat;"></div>
             </ion-col>
         </ion-row>
         <ion-row class="house-row">
             <img class="bird-house" src="https://res.cloudinary.com/dybehptfr/image/upload/v1611851685/only-birdhouse-bubble_jw9dnk.png" style="position: absolute; ">
         </ion-row>
-            <ion-row>
-            <ion-col size="12" class="ion-align-self-center">
-                <p class="bird-bubble-text" style="position: center; z-index: 5; font-size: large; padding: 5px; vertical-align: center; min-height: 70px; text-align: center;">Es fliegt, es fliegt ein/e: <b style="font-size: xx-large">{{text}}</b></p>
-                <img class="object" src='{{ "../../assets/images/" + text + ".png" }}' style="position: absolute; ">
-            </ion-col>
-          <ion-col *ngIf="gameFinished === true" size="8" offset="4">
+        <ion-row>
+        <ion-col size="12" class="ion-align-self-center">
+            <p class="bird-bubble-text" style="position: center; z-index: 5; font-size: large; padding: 5px; vertical-align: center; min-height: 70px; text-align: center;">Es fliegt, es fliegt ein/e: <b style="font-size: x-large">{{text}}</b></p>
+            <img *ngIf="gameFinished === false" class="object-bird-house" src='{{ "../../assets/" + text + ".png" }}' style="position: absolute; max-height: 100px; max-width: 100px;">
+        </ion-col>
+        </ion-row>
+        <ion-row *ngIf="gameFinished === true" style="background-color: #1de0b6; border-radius: 10px; border: 5px solid gray">
+          <ion-col size="8" offset="4">
             <form (ngSubmit)="submitScore()" style="width: 50%; text-align: center; align-items: center">
-                <ion-label>{{scoreToDisplay}} Punkte</ion-label>
-                <ion-item>
-                    <ion-label>Name: </ion-label>
-                    <ion-input type="text" [(ngModel)]="score.name" placeholder="Valentin Mustermann" name="name"></ion-input>
+                <ion-label class="points-result" style="font-size: xx-large; font-family: 'Comic Sans MS', 'Chalkboard SE', 'Comic Neue', sans-serif; color: white">{{scoreToDisplay}} Punkte</ion-label>
+                <ion-item style="border-radius: 50px; border: #6a6a6f 5px solid; ">
+                    <ion-label style="font-family: 'Comic Sans MS', 'Chalkboard SE', 'Comic Neue', sans-serif;">Name: </ion-label>
+                    <ion-input style=" font-family: 'Comic Sans MS', 'Chalkboard SE', 'Comic Neue', sans-serif;" type="text" [(ngModel)]="score.name" placeholder="Valentin Mustermann" name="name"></ion-input>
                 </ion-item>
-                <ion-item>
-                    <ion-label>Alter in Jahren: </ion-label>
-                    <ion-input type="text" [(ngModel)]="score.age" placeholder="4" name="age"></ion-input>
+                <ion-item style="border-radius: 50px; border: #6a6a6f 5px solid;" >
+                    <ion-label style=" font-family: 'Comic Sans MS', 'Chalkboard SE', 'Comic Neue', sans-serif;">Alter in Jahren: </ion-label>
+                    <ion-input style=" font-family: 'Comic Sans MS', 'Chalkboard SE', 'Comic Neue', sans-serif;" type="text" [(ngModel)]="score.age" placeholder="4" name="age"></ion-input>
                 </ion-item>
-                <button type="submit" style="padding: 10px; margin: 10px; border-radius: 3px; background-color: #7f3f97; color: white" (click)="forwardToLeaderboard()">Ergebnis teilen</button>
+                <button type="submit" style="padding: 20px; margin: 10px; border-radius: 5px; background-color: white; font-family: 'Comic Sans MS', 'Chalkboard SE', 'Comic Neue', sans-serif; font-size: x-large; color: gray; border: #6a6a6f 5px solid" (click)="forwardToLeaderboard()">Ergebnis teilen</button>
             </form>
           </ion-col>
         </ion-row>
