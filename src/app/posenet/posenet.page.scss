@@ -44,6 +44,10 @@ ion-toolbar {
   text-shadow: 0 0 5px black;
 }
 
+a {
+  text-decoration: none;
+}
+
 .button-introduction {
   border: #6a6a6f solid 5px;
   font-size: xx-large;
@@ -59,6 +63,14 @@ ion-toolbar {
   background-color: #15a88c;
   color: white;
   font-family: 'Comic Sans MS', 'Chalkboard SE', 'Comic Neue', sans-serif;
+}
+
+.button-leaderboard:hover {
+  background-color: lightgrey;
+}
+
+.button-introduction:hover {
+  background-color: lightgrey;
 }
 
 .rules {
