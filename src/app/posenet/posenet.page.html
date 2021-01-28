@@ -9,50 +9,52 @@
             <img src="../../assets/fly-valentine-fly.png" />
         </a>
         <ion-card-header>
-            <ion-card-subtitle>Kein Zugriff am Smartphone</ion-card-subtitle>
-            <ion-card-title>Bitte kommen Sie am PC/Laptop zurück</ion-card-title>
+            <ion-card-subtitle style="font-family: 'Comic Sans MS', 'Chalkboard SE', 'Comic Neue', sans-serif;
+">Kein Zugriff am Smartphone</ion-card-subtitle>
+            <ion-card-title style="font-family: 'Comic Sans MS', 'Chalkboard SE', 'Comic Neue', sans-serif;
+">Bitte kommen Sie am PC/Laptop zurück</ion-card-title>
         </ion-card-header>
-
-        <ion-card-content>
+        <ion-card-content style="font-family: 'Comic Sans MS', 'Chalkboard SE', 'Comic Neue', sans-serif;">
             Eine Mobile App wird bald entwickelt. Für Fragen bitte einfach mich kontaktieren:
-            <a href="mailto:anton@play-with-valentine">Kontakt</a>
+            <a href="mailto:anton@play-with-valentine" style="font-family: 'Comic Sans MS', 'Chalkboard SE', 'Comic Neue', sans-serif;
+">Kontakt</a>
         </ion-card-content>
     </ion-card>
 </div>
 <div *ngIf="mobileAccess === false">
     <ion-header color="primary">
-      <ion-toolbar style="padding: 5px; vertical-align: center">
+      <ion-toolbar>
       <ion-row>
-        <ion-col size="4" class="ion-align-self-start;" style="vertical-align: center">
-            <span style="font-size: large; margin-left: 10px; align-items: center"><b>Flieg Valentin Flieg</b></span><a href="http://www.play-with-valentine.com"><img src="../../assets/fly-valentine-fly.png" style="width: 50px; align-items: center" alt="Valentine the bird"/></a>
+        <ion-col size="4" class="ion-align-self-start;" style="vertical-align: center;   margin-top: 15px;">
+            <span class="main-headline" style="font-size: xx-large; margin-left: 10px; align-items: center"><b>Flieg Valentin Flieg</b></span><a href="http://www.play-with-valentine.com"></a>
         </ion-col>
-          <ion-col  size="4" class="ion-align-self-center" style="align-content: center; text-align: center;">
-              <ion-button *ngIf="running === false" (click)="play()" color="dark">Jetzt spiel starten!</ion-button>
-          </ion-col>
-        <ion-col size="4" class="ion-align-self-end">
-            <ion-button *ngIf="showRulesToggle === false" (click)="showRules()" color="dark" style="float: right;">Vor dem Spiel lesen👇🏻</ion-button>
-            <ion-button *ngIf="showRulesToggle" (click)="showRules()" color="dark" style="float: right;">Vor dem Spiel lesen☝🏻</ion-button>
-            <ion-button (click)="showLeaderboard()" color="dark" style="float: right;">Rangliste anzeigen</ion-button>
+        <ion-col size="4" offset="4" class="ion-align-self-end">
+            <button class="button-introduction" *ngIf="showRulesToggle === false" (click)="showRules()" color="dark" style="float: right;"><b>?</b>👇🏻</button>
+            <button class="button-introduction" *ngIf="showRulesToggle" (click)="showRules()" color="dark" style="float: right;"><b>?</b>☝🏻</button>
+            <button class="button-leaderboard" (click)="showLeaderboard()" color="dark"><ion-icon src="../../assets/trophy.svg" style="min-height: 50px; color: #414141"></ion-icon></button>
         </ion-col>
       </ion-row>
-        <div *ngIf="showRulesToggle" style="padding: 10px; background-color: lightgrey; border-radius: 5px; text-align: center; align-items: center">
-            <ion-row style="border-radius: 3px; border: #6e6e70 1px solid; margin: 5px; padding: 5px; background-color: white;">
-                <span style="font-size: medium; text-align: center; margin-left: 20px; padding-left: 20px;min-width: 100%"><b>Regeln:</b><br>Hebe deine Arme, wenn das Objekt nach dem es fliegt, es fliegt ... unten eingeblendet fliegen kann und lass die Arme unten, wenn es nicht fliegen kann. So sammelst Punkte. Bei 6 Punkten hast du gewonnen!</span>
-                <span style="color: indianred; text-align: center; min-width: 100%"><b> Achtung:</b> Achte darauf, dass deine Arme und Kopf immer im Bild sind.</span>
+        <div *ngIf="showRulesToggle" class="rules">
+            <ion-row style="border-radius: 3px; border: #6e6e70 5px solid; margin: 5px; padding: 5px; background-color: white; min-height: 150px">
+                <span style="font-family: 'Comic Sans MS', 'Chalkboard SE', 'Comic Neue', sans-serif; font-size: xx-large; text-align: center; margin-left: 20px; padding-left: 20px;min-width: 100%"><b>Regeln:</b><br><br>Hebe deine Arme, wenn das Objekt nach dem es fliegt, es fliegt ... unten eingeblendet fliegen kann und lass die Arme unten, wenn es nicht fliegen kann. So sammelst Punkte. Bei 6 Punkten hast du gewonnen!</span>
+                <span style="color: indianred; text-align: center; min-width: 100%; font-size: xx-large"><b> Achtung:</b> Achte darauf, dass deine Arme und Kopf immer im Bild sind.</span>
             </ion-row>
-            <ion-row>
-                <ion-col size="5" offset="1" style="border-radius: 3px; border: #6e6e70 1px solid; margin: 5px">
+            <ion-row style="max-height: 20vh">
+                <ion-col size="5" offset="1" style="border-radius: 3px; border: #6e6e70 5px solid; margin: 5px">
                     <ion-item style="margin: 10px">
-                        <p>Anzahl der Punkte bis Gewinn: </p>
-                        <ion-input type="number" [(ngModel)]="pointsToReach" placeholder="4" name="pointsToReach"></ion-input>
+                        <p style="font-family: 'Comic Sans MS', 'Chalkboard SE', 'Comic Neue', sans-serif;
+">Anzahl der Punkte bis Gewinn: </p>
+                        <ion-input style="font-size: xx-large; max-width: 50px; font-family: 'Comic Sans MS', 'Chalkboard SE', 'Comic Neue', sans-serif; margin-left: 5px" type="number" [(ngModel)]="pointsToReach" placeholder="4" name="pointsToReach"></ion-input>
                     </ion-item>
-                    <span style="font-size: medium; text-align: center; margin-left: 20px; padding-left: 20px; float: right"> <b>Hinweis: </b>Umso mehr Punkte du erreichst, umso mehr Punkte erhälts du!
+                    <span style="font-family: 'Comic Sans MS', 'Chalkboard SE', 'Comic Neue', sans-serif; font-size: medium; text-align: center; margin-left: 20px; padding-left: 20px; float: right"> <b>Hinweis: </b>Umso mehr Punkte du erreichst, umso mehr Punkte erhälts du!
                    </span>
                 </ion-col>
-                <ion-col size="5"  style="border-radius: 3px; border: #6e6e70 1px solid; margin: 5px">
+                <ion-col size="5"  style="border-radius: 3px; border: #6e6e70 5px solid; margin: 5px">
                     <ion-item style="margin: 10px">
-                        Schnell<ion-range ticks="true" [(ngModel)]="pace" color="dark" min="1" max="4" step="1" snaps="true"></ion-range>
-                        Langsam<br>
+                        <span style="font-family: 'Comic Sans MS', 'Chalkboard SE', 'Comic Neue', sans-serif; font-size: medium; text-align: center;">Schnell</span><ion-range ticks="true" [(ngModel)]="pace" color="dark" min="1" max="4" step="1" snaps="true"></ion-range>
+                        <ion-icon  slot="start" src="../../assets/speedometer.svg"></ion-icon>
+                        <ion-icon size="small" slot="end" src="../../assets/speedometer.svg"></ion-icon>
+                        <span style="font-family: 'Comic Sans MS', 'Chalkboard SE', 'Comic Neue', sans-serif; font-size: medium; text-align: center;">Langsam</span><br>
                     </ion-item>
                     <span style="font-size: medium; text-align: center; margin-left: 20px; padding-left: 20px; float: right"> <b>Hinweis: </b>Umso schneller das Spiel, umso mehr Punkte erhältst du!
                     </span>
@@ -64,31 +66,46 @@
     <ion-grid style="max-height: 170px">
       <ion-row style="margin-top: -25px">
         <ion-col size="4" class="ion-align-self-start">
-          <p style="position: center; padding: 5px; background-color: #7f3f97; border-radius: 5px; color: #ffffff; padding-top: 15px; text-align: center; vertical-align: center; min-height: 70px; font-size: xx-large">{{points}} / {{pointsToReach}} Punkte</p>
+          <p style="position: center; font-family: 'Comic Sans MS', 'Chalkboard SE', 'Comic Neue', sans-serif; padding: 5px; color: #414141; padding-top: 15px; text-align: center; vertical-align: center; min-height: 70px; font-size: xx-large">{{points}} / {{pointsToReach}} Punkte</p>
         </ion-col>
-        <ion-col size="4" class="ion-align-self-center">
-          <p style="position: center; font-size: large; padding: 5px; border: #7f3f97 2px solid; border-radius: 5px; color: #4d4d4d; vertical-align: center; min-height: 70px; text-align: center;">Es fliegt, es fliegt ein/e: <b style="font-size: xx-large">{{text}}</b></p>
-        </ion-col>
-        <ion-col size="4" class="ion-align-self-end">
-          <p *ngIf="handsUp" style="font-size: large; margin-bottom: 32px;  padding: 10px; background-color: lightgrey; border-radius: 5px; color: #4d4d4d; min-height: 69px;max-height: 70px; text-align: center;">  🙌 {{handsUpInSeconds}} Sekunden von {{pace}} Sekunden</p>
-          <p *ngIf="handsDown" style="font-size: large; margin-bottom: 32px; padding: 10px; background-color: lightgrey; border-radius: 5px; color: #4d4d4d; min-height: 69px;max-height: 70px; text-align: center;"> 🧍‍♂️ {{handsDownInSeconds}} Sekunden von {{pace}} Sekunden</p>
-          <p *ngIf="handsDown === 0 && handsUp === 0" style="font-size: large; margin-bottom: 32px; padding: 10px; background-color: lightgrey; border-radius: 5px; color: #4d4d4d; min-height: 69px;max-height: 70px; text-align: center;"> 0 Sekunden von {{pace}} Sekunden</p>
-        </ion-col>
-      </ion-row>
-      <ion-row style="margin-top: -25px">
-        <ion-col size="12" *ngIf="showResult || showCountdown" class="ion-align-self-center" style="font-size: xx-large; text-align: center; align-items: center;">
-            <p *ngIf="result === 'Richtig 😊'" style="position: center;  margin: 10px; padding: 5px;  background-color: lightgreen; border-radius: 7px; color: #ffffff; text-align: center;">{{result}}</p>
-            <p *ngIf="result === 'Falsch 😔'" style="position: center; margin: 10px; padding: 5px;  background-color: lightcoral; border-radius: 7px; color: #ffffff; text-align: center;">{{result}}</p>
-            <p *ngIf="result === 'Gratulation - Du hast gewonnen!! 🥳'" style="position: center; margin: 10px; padding: 5px; background-color: #9b5ab4; border-radius: 7px; color: #ffffff; text-align: center;">{{result}}</p>
-            <p *ngIf="showCountdown" style="font-size: xxx-large; text-align: center; align-items: center; margin-top: 10px; background-color: #9b5ab4; border-radius: 5px; color: white;">{{counterCountdown}}</p>
+          <ion-col *ngIf="running === false" size="4" class="ion-align-self-center" style="align-content: center; text-align: center;">
+              <button class="button-start-game"  (click)="play()">Spiel starten!</button>
+          </ion-col>
+          <ion-col size="4" *ngIf="running === true" class="ion-align-self-center">
+              <p class="result" *ngIf="result === 'Richtig 😊'" style="position: center;  font-size: xx-large; margin: 10px; padding: 5px;  background-color: lightgreen; border-radius: 7px; text-align: center; align-items: center; border: 5px solid #414141;">{{result}}</p>
+              <p class="result" *ngIf="result === 'Falsch 😔'" style="position: center; font-size: xx-large; margin: 10px; padding: 5px;  background-color: lightcoral; border-radius: 7px; text-align: center;border: 5px solid #414141;">{{result}}</p>
+              <p class="result" *ngIf="result === 'Gratulation - Du hast gewonnen!! 🥳'" style="position: center; font-size: xx-large; margin: 10px; padding: 5px; background-color: #1de0b6; border-radius: 7px; text-align: center;border: 5px solid #414141;">{{result}}</p>
+              <p class="countdown" *ngIf="showCountdown" style="font-size: xxx-large; text-align: center; align-items: center; margin-top: 30px; background-color: #1de0b6; border-radius: 5px; color: white;border: 5px solid #414141;">{{counterCountdown}}</p>
+              <p></p>
+          </ion-col>
+        <ion-col size="4"  class="ion-align-self-end" style="font-size: xx-large;">
+          <p *ngIf="handsUp" style="font-size: xx-large; margin-bottom: 32px;  padding: 10px;  min-height: 69px;max-height: 70px; text-align: center; color: #414141"> {{handsUpInSeconds}} / {{pace}} Sekunden</p>
+          <p *ngIf="handsDown" style="font-size: xx-large; margin-bottom: 32px; padding: 10px;  min-height: 69px;max-height: 70px; text-align: center; color: #414141"> {{handsDownInSeconds}} / {{pace}} Sekunden</p>
+          <p *ngIf="handsDown === 0 && handsUp === 0" style="font-size: xx-large; margin-bottom: 32px; padding: 10px; min-height: 69px;max-height: 70px; text-align: center; color: #414141"> 0 / {{pace}} Sekunden</p>
         </ion-col>
       </ion-row>
     </ion-grid>
     <ion-content #content2 align="center" style="min-height: 60vh">
         <ion-row style="margin-top: 25px">
-          <div *ngIf="gameFinished === false" #canvasContainer2 class="ion-text-center canvasContainer2" >
-              <video autoplay="true" id="videoElement" style="border-radius: 10px; width: auto; height: auto; border: #7f3f97 solid 5px; background-image: url('https://res.cloudinary.com/dybehptfr/image/upload/v1611340683/pexels-photo-3807737_znzahg.jpg');"></video>
-          </div>
+            <ion-col size="4">
+              <div *ngIf="gameFinished === false" #canvasContainer2 class="ion-text-start canvasContainer2" >
+                  <video autoplay="true" id="videoElement" style="border-radius: 10px; max-width: 380px; border: #6a6a6f solid 5px; background-position: center; background-repeat: no-repeat; background-image: url('https://res.cloudinary.com/dybehptfr/image/upload/v1611849780/44285345_xl_yiq6ix.jpg');"></video>
+              </div>
+            </ion-col>
+            <ion-col size="4" offset="4" class="ion-text-end" style="align-items: center">
+                <div *ngIf="handsUp > 0" style="border-radius: 10px; width: 380px; height: 280px; border: #6a6a6f solid 5px; background-position: center; background-color: white; background-size: contain; background-repeat: no-repeat; background-image: url('https://res.cloudinary.com/dybehptfr/image/upload/v1611846194/man-hands-up_yi04kp.png');"></div>
+                <div *ngIf="handsDown > 0" style="border-radius: 10px; width: 380px; height: 280px; border: #6a6a6f solid 5px;  background-position: center; background-color: white; background-size: contain; background-repeat: no-repeat; background-image: url('https://res.cloudinary.com/dybehptfr/image/upload/v1611847295/man-hands-down_Kopie_uu8ojy.png');"></div>
+                <div *ngIf="handsDown === 0 && handsUp === 0" style="border-radius: 10px; width: 380px; height: 280px; border: #6a6a6f solid 5px;  background-position: center; background-color: white; background-size: cover; background-repeat: no-repeat;"></div>
+            </ion-col>
+        </ion-row>
+        <ion-row class="house-row">
+            <img class="bird-house" src="https://res.cloudinary.com/dybehptfr/image/upload/v1611851685/only-birdhouse-bubble_jw9dnk.png" style="position: absolute; ">
+        </ion-row>
+            <ion-row>
+            <ion-col size="12" class="ion-align-self-center">
+                <p class="bird-bubble-text" style="position: center; z-index: 5; font-size: large; padding: 5px; vertical-align: center; min-height: 70px; text-align: center;">Es fliegt, es fliegt ein/e: <b style="font-size: xx-large">{{text}}</b></p>
+                <img class="object" src='{{ "../../assets/images/" + text + ".png" }}' style="position: absolute; ">
+            </ion-col>
           <ion-col *ngIf="gameFinished === true" size="8" offset="4">
             <form (ngSubmit)="submitScore()" style="width: 50%; text-align: center; align-items: center">
                 <ion-label>{{scoreToDisplay}} Punkte</ion-label>
