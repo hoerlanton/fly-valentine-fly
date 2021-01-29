@@ -25,16 +25,14 @@
     <ion-header color="primary">
       <ion-toolbar>
       <ion-row>
-        <ion-col size="4" class="ion-align-self-start;" style="vertical-align: center;   margin-top: 15px;">
+        <ion-col size="3" class="ion-align-self-start;" style="vertical-align: center;   margin-top: 15px;">
             <a href="http://www.play-with-valentine.com"><span class="main-headline" style="font-size: xx-large; margin-left: 10px; align-items: center"><b>Flieg Valentin Flieg</b></span></a>
         </ion-col>
-      <ion-col size="4" class="ion-align-self-center;" style="vertical-align: center; align-items: center; text-align: center; margin-top: 15px;">
+      <ion-col size="6" class="ion-align-self-center;" style="vertical-align: center; align-items: center; text-align: center; margin-top: 15px;">
           <audio controls>
-              <source src="../../assets/bensound-buddy.mp3" type="audio/mp3">
-              Your browser does not support the audio element.
-          </audio>
+              <source src="../../assets/bensound-buddy.mp3" type="audio/mp3"></audio> <span style="vertical-align: center"> Musik: <a href="www.bensound.com">www.bensound.com</a></span>
       </ion-col>
-        <ion-col size="4" class="ion-align-self-end">
+        <ion-col size="3" class="ion-align-self-end">
             <button class="button-introduction" *ngIf="showRulesToggle === false" (click)="showRules()" color="dark" style="float: right;"><b>?</b>👇🏻</button>
             <button class="button-introduction" *ngIf="showRulesToggle" (click)="showRules()" color="dark" style="float: right;"><b>?</b>☝🏻</button>
             <button class="button-leaderboard" (click)="showLeaderboard()" color="dark"><ion-icon src="../../assets/trophy.svg" style="min-height: 50px; color: #414141"></ion-icon></button>
