@@ -98,8 +98,6 @@ a {
 #videoElement {
   background-size: cover;
   margin-left: 5vw;
-  max-height: 270px;
-  min-height: 269px;
 }
 
 ion-content {
@@ -138,10 +136,14 @@ ion-content {
   z-index: 1;
   margin: -9vh auto auto;
   max-width: 11vw;
+  font-size: large;
+}
+
+.object-word {
+  font-size: x-large;
 }
 
 .object-bird-house {
-  position: absolute;
   left: 0;
   right: 0;
   text-align: center;
@@ -149,7 +151,8 @@ ion-content {
   margin: -3vh auto auto 50vw;
   max-height: 100px;
   max-width: 100px;
-}
+  position: relative;
+  animation: myfirst 5s linear 2s infinite alternate;}
 
 @media (max-width: 1400px) {
   .bird-bubble-text {
@@ -164,7 +167,6 @@ ion-content {
   }
 
   .object-bird-house {
-    position: absolute;
     left: 0;
     right: 0;
     text-align: center;
@@ -172,7 +174,37 @@ ion-content {
     margin: -5vh auto auto 50vw;
     max-height: 50px;
     max-width: 50px;
+    width: auto;
+    height: auto;
+    position: relative;
+  }
+}
+
+@media (max-width: 1200px) {
+  .bird-bubble-text {
+    position: absolute;
+    left: -22vw;
+    right: 0;
+    text-align: center;
+    z-index: 1;
+    font-size: medium;
+    margin: -13vh auto auto;
+    max-width: 11vw;
+  }
+  .object-word {
+    font-size: medium;
   }
 
 }
 
+@keyframes myfirst {
+  0%   { left:0; top:0;}
+  25%  { left:-50px; bottom:100px; max-width: 200px; max-height: 200px;   width: auto;
+    height: auto;}
+  50%  { left:-100px; bottom:50px; max-width: 200px; max-height: 200px;   width: auto;
+    height: auto;}
+  75%  { left:-300px; bottom:100px; max-width: 200px; max-height: 200px;   width: auto;
+    height: auto;}
+  100% { left:-400px; bottom:70px; max-width: 200px; max-height: 200px;   width: auto;
+    height: auto;}
+}

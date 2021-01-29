@@ -20,6 +20,7 @@ export class LeaderboardPage implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
+    this.allScores = [];
     this.getLeaderboard();
   }
 

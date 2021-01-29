@@ -18,13 +18,13 @@
   <ion-list class="item-card" inset="true" *ngFor="let scoreFromUser of allScores; index as i;">
     <ion-item>
       <ion-avatar slot="start">
-        <h1 style="margin-top: -10px; background-color: #1de0b6; border-radius: 50%; text-align: center; color: white;">{{i+1}}</h1>
+        <h1 style="margin-top: -10px; background-color: #1de0b6; border-radius: 50%; padding: 7px; min-width: 65px; min-height: 65px; text-align: center; color: white; border: #6a6a6f solid 5px">{{i+1}}</h1>
       </ion-avatar>
       <ion-label>
-        <h2>Name: {{scoreFromUser.name}}</h2>
-        <h3>Punkte: {{scoreFromUser.score}}</h3>
-        <h3>Alter: {{scoreFromUser.age}} Jahre</h3>
-        <h3>Datum: {{scoreFromUser.dateTime}}</h3>
+        <h2>   Name: {{scoreFromUser.name}}</h2>
+        <h3>   Punkte: {{scoreFromUser.score}}</h3>
+        <h3>   Alter: {{scoreFromUser.age}} Jahre</h3>
+        <h3>   Datum: {{scoreFromUser.dateTime}}</h3>
       </ion-label>
       </ion-item>
   </ion-list>

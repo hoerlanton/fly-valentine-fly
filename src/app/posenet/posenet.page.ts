@@ -86,6 +86,11 @@ export class PosenetPage implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.detectMob();
+    window.addEventListener("DOMContentLoaded", event => {
+      const audio = document.querySelector("audio");
+      audio.volume = 0.2;
+      audio.play();
+    });
     // will throw an exception if not browser supported
     if (this.speech.hasBrowserSupport()) { // returns a boolean
       console.log('speech synthesis supported');
