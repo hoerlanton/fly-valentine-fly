@@ -3,8 +3,8 @@
         <canvas #canvas style="border-radius: 10px; width: auto; height: auto; border: #7f3f97 solid 5px"></canvas>
     </div>
  </ion-content>
-<div *ngIf="mobileAccess" style="background-color: #1de0b6; min-height: 100%">
-    <ion-card>
+<div *ngIf="mobileAccess" style="background-color: #1de0b6; min-height: 100vh">
+    <ion-card style="max-height: 80vh">
         <a href="http://www.play-with-valentine.com">
             <img src="../../assets/fly-valentine-fly.png" />
         </a>
@@ -12,10 +12,10 @@
             <ion-card-subtitle style="font-family: 'Comic Sans MS', 'Chalkboard SE', 'Comic Neue', sans-serif;
 ">Kein Zugriff am Smartphone</ion-card-subtitle>
             <ion-card-title style="font-family: 'Comic Sans MS', 'Chalkboard SE', 'Comic Neue', sans-serif;
-">Bitte kommen Sie am PC/Laptop zurück</ion-card-title>
+">Bitte komm am PC/Laptop zurück</ion-card-title>
         </ion-card-header>
         <ion-card-content style="font-family: 'Comic Sans MS', 'Chalkboard SE', 'Comic Neue', sans-serif;">
-            Eine Mobile App wird bald entwickelt. Für Fragen bitte einfach mich kontaktieren:
+            Eine Mobile App wird bald entwickelt. Für Fragen, bitte einfach Anton kontaktieren:
             <a href="mailto:anton@play-with-valentine" style="font-family: 'Comic Sans MS', 'Chalkboard SE', 'Comic Neue', sans-serif;
 ">Kontakt</a>
         </ion-card-content>
@@ -29,8 +29,12 @@
             <a href="http://www.play-with-valentine.com"><span class="main-headline" style="font-size: xx-large; margin-left: 10px; align-items: center"><b>Flieg Valentin Flieg</b></span></a>
         </ion-col>
       <ion-col size="6" class="ion-align-self-center;" style="vertical-align: center; align-items: center; text-align: center; margin-top: 15px;">
-          <audio controls>
-              <source src="../../assets/bensound-buddy.mp3" type="audio/mp3"></audio> <span style="vertical-align: center"> Musik: <a href="www.bensound.com">www.bensound.com</a></span>
+          <audio controls style="border: #6a6a6f 5px solid; border-radius: 50px;">
+              <source src="../../assets/bensound-buddy.mp3" type="audio/mp3">
+          </audio>
+          <span style="vertical-align: center"> Musik:
+              <a href="www.bensound.com">www.bensound.com</a>
+          </span>
       </ion-col>
         <ion-col size="3" class="ion-align-self-end">
             <button class="button-introduction" *ngIf="showRulesToggle === false" (click)="showRules()" color="dark" style="float: right;"><b>?</b>👇🏻</button>
