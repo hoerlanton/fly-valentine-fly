@@ -106,31 +106,18 @@ ion-content {
 
 .bird-house {
    position: absolute;
-    left: 0;
+   left: 0;
    right: 0;
    text-align: center;
    z-index: -1;
-  margin: -20vh auto auto;
-  max-width: 40vw;
-  font-size: large;
-}
-
-@media (max-width: 2000px) {
-  .bird-house {
-    position: absolute;
-    left: 0;
-    right: 0;
-    text-align: center;
-    z-index: -1;
-    margin: -17vh auto auto;
-    max-width: 40vw;
-    font-size: large;
-  }
+   margin: -25vh auto auto;
+   max-width: 40vw;
+   font-size: large;
 }
 
 .bird-bubble-text {
   position: absolute;
-  left: -22vw;
+  left: -28vw;
   right: 0;
   text-align: center;
   z-index: 1;
@@ -143,21 +130,52 @@ ion-content {
   font-size: x-large;
 }
 
+.bird-bubble-text {
+  margin: -11vh auto auto 58vw;
+}
+
 .object-bird-house {
   left: 0;
   right: 0;
   text-align: center;
   z-index: 1;
-  margin: -3vh auto auto 50vw;
+  margin: -6vh auto auto 50vw;
   max-height: 100px;
   max-width: 100px;
   position: relative;
-  animation: myfirst 5s linear 2s infinite alternate;}
+  animation: myfirst 5s linear 2s infinite alternate;
+}
+
+@media (max-width: 2000px) {
+  .bird-house {
+    position: absolute;
+    left: 0;
+    right: 0;
+    text-align: center;
+    z-index: -1;
+    margin: -25vh auto auto;
+    max-width: 55vw;
+    font-size: large;
+  }
+}
+
+@media (max-width: 1600px) {
+  .bird-house {
+    position: absolute;
+    left: 0;
+    right: 0;
+    text-align: center;
+    z-index: -1;
+    margin: -20vh auto auto;
+    max-width: 55vw;
+    font-size: large;
+  }
+}
 
 @media (max-width: 1400px) {
   .bird-bubble-text {
     position: absolute;
-    left: -22vw;
+    left: -30vw;
     right: 0;
     text-align: center;
     z-index: 1;
@@ -183,7 +201,7 @@ ion-content {
 @media (max-width: 1200px) {
   .bird-bubble-text {
     position: absolute;
-    left: -22vw;
+    left: -30vw;
     right: 0;
     text-align: center;
     z-index: 1;
