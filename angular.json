@@ -20,7 +20,8 @@
             "tsConfig": "tsconfig.app.json",
             "aot": true,
             "assets": [
-              "src/assets",
+              "assets",
+              "favicon.png",
               {
                 "glob": "@(eye-outline.svg|image-outline.svg|body-outline.svg|mic-outline.svg)",
                 "input": "node_modules/ionicons/dist/ionicons/svg",

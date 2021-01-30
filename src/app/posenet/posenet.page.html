@@ -6,7 +6,7 @@
 <div *ngIf="mobileAccess" style="background-color: #1de0b6; min-height: 100vh">
     <ion-card style="max-height: 90vh">
         <a href="http://www.play-with-valentine.com">
-            <img src="../../assets/fly-valentine-fly.png" style="max-height: 20vh"/>
+            <img src="../../assets/images/fly-valentine-fly.png" style="max-height: 20vh"/>
         </a>
         <ion-card-header>
             <ion-card-subtitle style="font-family: 'Comic Sans MS', 'Chalkboard SE', 'Comic Neue', sans-serif;
@@ -30,16 +30,16 @@
         </ion-col>
       <ion-col size="6" class="ion-align-self-center;" style="vertical-align: center; align-items: center; text-align: center; margin-top: 15px;">
           <audio controls style="border: #6a6a6f 5px solid; border-radius: 50px;">
-              <source src="../../assets/bensound-buddy.mp3" type="audio/mp3">
+              <source src="../../assets/music/bensound-buddy.mp3" type="audio/mp3">
           </audio>
           <span style="vertical-align: center"> Musik:
-              <a href="www.bensound.com">www.bensound.com</a>
+              <a href="http://www.bensound.com">www.bensound.com</a>
           </span>
       </ion-col>
         <ion-col size="3" class="ion-align-self-end">
             <button class="button-introduction" *ngIf="showRulesToggle === false" (click)="showRules()" color="dark" style="float: right;"><b>?</b>👇🏻</button>
             <button class="button-introduction" *ngIf="showRulesToggle" (click)="showRules()" color="dark" style="float: right;"><b>?</b>☝🏻</button>
-            <button class="button-leaderboard" (click)="showLeaderboard()" color="dark"><ion-icon src="../../assets/trophy.svg" style="min-height: 50px; color: #414141"></ion-icon></button>
+            <button class="button-leaderboard" (click)="showLeaderboard()" color="dark"><ion-icon src="../../assets/icons/trophy.svg" style="min-height: 50px; color: #414141"></ion-icon></button>
         </ion-col>
       </ion-row>
         <div *ngIf="showRulesToggle" class="rules">
@@ -60,8 +60,8 @@
                 <ion-col size="5"  style="border-radius: 3px; border: #6e6e70 5px solid; margin: 5px">
                     <ion-item style="margin: 10px">
                         <span style="font-family: 'Comic Sans MS', 'Chalkboard SE', 'Comic Neue', sans-serif; font-size: medium; text-align: center;">Schnell</span><ion-range ticks="true" [(ngModel)]="pace" color="dark" min="1" max="4" step="1" snaps="true"></ion-range>
-                        <ion-icon  slot="start" src="../../assets/speedometer.svg"></ion-icon>
-                        <ion-icon size="small" slot="end" src="../../assets/speedometer.svg"></ion-icon>
+                        <ion-icon  slot="start" src="../../assets/icons/speedometer.svg"></ion-icon>
+                        <ion-icon size="small" slot="end" src="../../assets/icons/speedometer.svg"></ion-icon>
                         <span style="font-family: 'Comic Sans MS', 'Chalkboard SE', 'Comic Neue', sans-serif; font-size: medium; text-align: center;">Langsam</span><br>
                     </ion-item>
                     <span style="font-size: medium; text-align: center; margin-left: 20px; padding-left: 20px; float: right"> <b>Hinweis: </b>Umso schneller das Spiel, umso mehr Punkte erhältst du!
@@ -112,7 +112,7 @@
         <ion-row>
         <ion-col size="12" class="ion-align-self-center">
             <p class="bird-bubble-text" style="position: center; z-index: 5; padding: 5px; vertical-align: center; min-height: 70px; text-align: center;">Es fliegt, es fliegt ein/e: <span class="object-word"><b>{{text}}</b></span></p>
-            <img *ngIf="gameFinished === false" class="object-bird-house" src='{{ "../../assets/" + text + ".png" }}' style="position: absolute;" [style.animation]="running === true ? 'myfirst 4s linear 2s infinite alternate' : 'none'">
+            <img *ngIf="gameFinished === false" class="object-bird-house" src='{{ "../../assets/images/" + text + ".png" }}' style="position: absolute;" [style.animation]="running === true ? 'myfirst 4s linear 2s infinite alternate' : 'none'">
         </ion-col>
         </ion-row>
         <ion-row *ngIf="gameFinished === true" style="background-color: #1de0b6; border-radius: 10px; border: 5px solid gray">
