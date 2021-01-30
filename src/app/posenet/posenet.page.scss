@@ -226,3 +226,31 @@ ion-content {
   100% { left:-400px; bottom:70px; max-width: 200px; max-height: 200px;   width: auto;
     height: auto;}
 }
+
+.range-knob, ion-range {
+  min-height: 35px;
+  min-width: 35px;
+  --knob-size: 35px;
+  --ion-color-base: #1de0b6!important;
+}
+
+div > div.range-knob-handle.range-knob-a.range-knob-max, .range-slider {
+  min-height: 35px;
+  min-width: 35px;
+  --knob-size: 35px;
+}
+
+.speed {
+  height: 60px;
+  width: 60px;
+}
+
+.speed-two {
+  height: 40px;
+  width: 40px;
+}
+
+.item-points-picker {
+  max-width: 300px;
+  float: right;
+}
