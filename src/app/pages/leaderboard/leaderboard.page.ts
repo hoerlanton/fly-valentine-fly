@@ -15,13 +15,12 @@ export class LeaderboardPage implements OnInit, AfterViewInit {
               private router: Router) {
     this.mainService.addNewScore$.subscribe((data) => {
           this.getLeaderboard();
-      }
-    );
+    });
+    this.getLeaderboard();
   }
 
   ngOnInit(): void {
-    this.allScores = [];
-    this.getLeaderboard();
+
   }
 
   // tslint:disable-next-line:typedef
