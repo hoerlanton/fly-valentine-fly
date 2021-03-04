@@ -29,13 +29,27 @@ export class LeaderboardPage implements OnInit, AfterViewInit {
     this.mainService.resetGame();
   }
 
+  // tslint:disable-next-line:typedef
+  compare(a, b) {
+    if (a.score < b.score ) {
+      return 1;
+    }
+    if (a.score > b.score) {
+      return -1;
+    }
+    // a muss gleich b sein
+    return 0;
+  }
+
   getLeaderboard(): void {
     this.allScores = [];
     this.mainService.getAllScores().then(response => {
       // @ts-ignore
+      // tslint:disable-next-line:prefer-for-of
       for (let i = 0; i < response.length; i++) {
         this.allScores.push(response[i]);
         // console.log(this.allScores);
+        this.allScores.sort(this.compare);
       }
     });
   }

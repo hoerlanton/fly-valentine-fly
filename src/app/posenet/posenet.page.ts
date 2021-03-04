@@ -86,9 +86,8 @@ export class PosenetPage implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.detectMob();
-    window.addEventListener("DOMContentLoaded", event => {
-      const audio = document.querySelector("audio");
-      audio.volume = 0.2;
+    window.addEventListener('DOMContentLoaded', event => {
+      const audio = document.querySelector('audio');
       audio.play();
     });
     // will throw an exception if not browser supported
@@ -96,7 +95,7 @@ export class PosenetPage implements OnInit, AfterViewInit {
       console.log('speech synthesis supported');
     }
     this.speech.init({
-      volume: 1,
+      volume: 5,
       lang: 'de-DE',
       rate: 1,
       pitch: 1,
@@ -139,6 +138,7 @@ export class PosenetPage implements OnInit, AfterViewInit {
     this.showRulesToggle = false;
     this.counterCountdown = 3;
     this.points = 0;
+    this.result = '';
     this.showCountdown = true;
     this.myLoop();
     const video = document.querySelector('#videoElement') as HTMLVideoElement;
@@ -325,7 +325,7 @@ export class PosenetPage implements OnInit, AfterViewInit {
     if (this.points === this.pointsToReach) {
       this.result = 'Gratulation - Du hast gewonnen!! 🥳';
       clearInterval(this.refreshIntervalId);
-      this.scoreToDisplay = (this.points * 100 - this.mistakes * 100) / this.pace;
+      this.scoreToDisplay = Math.round((this.points * 100 - this.mistakes * 100) / this.pace);
       this.gameFinished = true;
       this.running = false;
       this.showResult = true;
@@ -381,6 +381,7 @@ export class PosenetPage implements OnInit, AfterViewInit {
     if (this.gameFinished === true) {
       this.score.score = Math.round((this.points * 100 - this.mistakes * 100) / this.pace);
       this.score.dateTime = moment().format();
+      this.points = 0;
       this.mainService.postScore(this.score);
     }
   }
