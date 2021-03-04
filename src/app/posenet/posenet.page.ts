@@ -136,6 +136,7 @@ export class PosenetPage implements OnInit, AfterViewInit {
     this.running = true;
     this.gameFinished = false;
     this.showResult = false;
+    this.showRulesToggle = false;
     this.counterCountdown = 3;
     this.points = 0;
     this.showCountdown = true;
@@ -378,7 +379,7 @@ export class PosenetPage implements OnInit, AfterViewInit {
   submitScore(): void {
     console.log('Submit Score called');
     if (this.gameFinished === true) {
-      this.score.score = (this.points * 100 - this.mistakes * 100) / this.pace;
+      this.score.score = Math.round((this.points * 100 - this.mistakes * 100) / this.pace);
       this.score.dateTime = moment().format();
       this.mainService.postScore(this.score);
     }
